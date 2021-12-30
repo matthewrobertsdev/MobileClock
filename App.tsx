@@ -55,15 +55,20 @@ const Section = ({children, title}): Node => {
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
+  const statusBarStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    height: 20,
+    width: '100%'
   };
 
   return (
-      <View style={styles.container}>
-        <Text style={styles.timeText} >12:00:00 PM</Text>
-        <Text style={styles.dateText} >Thursday, December 30</Text>
-        </View>
+    <View style={styles.container}>
+      <View style={statusBarStyle}></View>
+        <View style={styles.container}>
+          <Text style={styles.timeText} >12:00:00 PM</Text>
+          <Text style={styles.dateText} >Thursday, December 30</Text>
+      </View>
+    </View>
   );
 };
 const styles = StyleSheet.create({
@@ -71,16 +76,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgb(255, 204, 2)'//rgb(5, 121, 255)'
+    backgroundColor: 'rgb(189, 134, 9)'//rgb(255, 204, 2)'//rgb(5, 121, 255)'
   },
   timeText: {
     fontSize: 75,
     textAlign: "center",
+    //color: 'white',
     margin: 10,
   },
   dateText: {
     fontSize: 50,
     textAlign: "center",
+    //color: 'white',
     margin: 10,
   },
 })
