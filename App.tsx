@@ -26,47 +26,38 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const statusBarStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    height: 20,
+    height: 50,
     width: '100%'
   };
+
+  const bottomStyle = {
+    height: 35,
+    width: '100%',
+    justifyContent: 'flex-end',
+    marginBottom: 0,
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  }
+
+  const adStyle = {
+    height: 50,
+    width: '100%',
+    backgroundColor: 'rgb(2, 76, 182)'//rgb(255, 204, 2)'//rgb(5, 121, 255)'
+  }
 
   return (
     <View style={styles.container}>
       <View style={statusBarStyle}></View>
-        <View style={styles.container}>
-          <Text style={styles.timeText} >12:00:00 PM</Text>
-          <Text style={styles.dateText} >Thursday, December 30</Text>
+      <View style={styles.container}>
+        <Text style={styles.timeText} >12:00:00 PM</Text>
+        <Text style={styles.dateText} >Thursday, December 30</Text>
+      </View>
+      <View style={adStyle}></View>
+      <View style={bottomStyle}>
       </View>
     </View>
   );
@@ -76,18 +67,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgb(189, 134, 9)'//rgb(255, 204, 2)'//rgb(5, 121, 255)'
+    backgroundColor: 'rgb(2, 76, 182)'//rgb(189, 134, 9)'//rgb(255, 204, 2)'//rgb(5, 121, 255)'
   },
   timeText: {
     fontSize: 75,
     textAlign: "center",
-    //color: 'white',
+    color: 'white',
     margin: 10,
   },
   dateText: {
     fontSize: 50,
     textAlign: "center",
-    //color: 'white',
+    color: 'white',
     margin: 10,
   },
 })
