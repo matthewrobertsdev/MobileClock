@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import type {Node} from 'react';
 import {
   SafeAreaView,
@@ -17,6 +17,7 @@ import {
   useColorScheme,
   View,
   Platform,
+  AppState,
 } from 'react-native';
 
 import {
@@ -33,7 +34,7 @@ const App: () => Node = () => {
   };
 
   const bottomStyle = {
-    height: Platform.OS === 'ios' ? 35 : 50,
+    height: 50,
     width: '100%',
     justifyContent: 'flex-end',
     marginBottom: 0,
@@ -45,6 +46,27 @@ const App: () => Node = () => {
     width: '100%',
     backgroundColor: 'rgb(2, 76, 182)'//rgb(255, 204, 2)'//rgb(5, 121, 255)'
   }
+
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
+
+  useEffect(() => {
+    let startTimer = setInterval(() => {
+      console.log('tic')
+  }, 1000);
+  return () => clearTimeout(startTimer);
+  /*
+  const subscription = AppState.addEventListener("change", nextAppState => {
+    if (
+      appState.current.match(/inactive|background/) &&
+      nextAppState === "active"
+    ) {
+      console.log("App has gone to the foreground!");
+      clearInterval(startTimer)
+    }
+  });
+  */
+}, []);
 
   return (
     <View style={styles.container}>
@@ -81,3 +103,4 @@ const styles = StyleSheet.create({
 })
 
 export default App;
+
