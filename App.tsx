@@ -16,14 +16,11 @@ import {
   Text,
   useColorScheme,
   View,
+  Platform,
 } from 'react-native';
 
 import {
   Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
 const App: () => Node = () => {
@@ -31,12 +28,12 @@ const App: () => Node = () => {
 
   const statusBarStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    height: 50,
+    height: Platform.OS === 'ios' ? 50 : 0,
     width: '100%'
   };
 
   const bottomStyle = {
-    height: 35,
+    height: Platform.OS === 'ios' ? 35 : 50,
     width: '100%',
     justifyContent: 'flex-end',
     marginBottom: 0,
