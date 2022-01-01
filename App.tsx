@@ -37,11 +37,11 @@ const App: () => Node = () => {
   const statusBarStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     height: Platform.OS === 'ios' ? 50 : 0,
-    width: '100%'
+    flex: 1,
   };
 
   const bottomStyle = {
-    height: 50,
+    height: Platform.OS === 'ios' ? 35 : 50,
     width: '100%',
     justifyContent: 'flex-end',
     marginBottom: 0,
@@ -59,82 +59,36 @@ const App: () => Node = () => {
 
 
   useEffect(() => {
-    console.log(appState)
     let startTimer = setInterval(() => {
       const date=new Date();
-      console.log('tic');
       setTimeString(getTimeStringFromDate(date));
       setDateString(getDateStringFromDate(date));
   }, 100);
-    /*
-    let subscription;
-    if (appState.current==='unknown') {
-      const startDate=new Date()
-    const millisecondsOffset=1000-startDate.getMilliseconds()
-    let timeOut = setTimeout(() => {
-      let firstDate=new Date()
-      setTimeString(getTimeStringFromDate(firstDate));
-      setDateString(getDateStringFromDate(firstDate));
-      startTimer = setInterval(() => {
-        const date=new Date();
-        console.log('tic');
-        setTimeString(getTimeStringFromDate(date));
-        setDateString(getDateStringFromDate(date));
-    }, 100);
-  }, millisecondsOffset);
-  } else {
-    subscription = AppState.addEventListener("change", nextAppState => {
-      if (
-        appState.current.match(/inactive|background/) &&
-        nextAppState === "active"
-      ) {
-        console.log("App has come to the foreground!");
-    const startDate=new Date()
-    const millisecondsOffset=1000-startDate.getMilliseconds()
-    let timeOut = setTimeout(() => {
-      let firstDate=new Date()
-      setTimeString(getTimeStringFromDate(firstDate));
-      setDateString(getDateStringFromDate(firstDate));
-      startTimer = setInterval(() => {
-        const date=new Date();
-        console.log('tic');
-        setTimeString(getTimeStringFromDate(date));
-        setDateString(getDateStringFromDate(date));
-    }, 1000);
-  }, millisecondsOffset);
-      }
-      appState.current = nextAppState;
-      setAppStateVisible(appState.current);
-    })
-  }
-  */
   return () => {
     if (startTimer!==null) {
       clearTimeout(startTimer)
   }
-  //if (subscription!==null) {
-    //subscription.remove();
-//}
   };
 }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={statusBarStyle}></View>
+    <SafeAreaView style={statusBarStyle}>
+      <StatusBar/>
       <View style={styles.container}>
-        <Text style={styles.timeText} >{timeString}</Text>
-        <Text style={styles.dateText} >{dateString}</Text>
+        <View style={styles.container}>
+          <Text style={styles.timeText} >{timeString}</Text>
+          <Text style={styles.dateText} >{dateString}</Text>
+        </View>
+        <View style={adStyle}/>
+        <View style={bottomStyle}/>
       </View>
-      <View style={adStyle}></View>
-      <View style={bottomStyle}>
-      </View>
-    </View>
+    </SafeAreaView>
   );
   function getTimeStringFromDate(date: Date) {
     let minutesString=''
     let secondsString=''
-    const minutes=date.getMinutes()
-    const seconds=date.getSeconds()
+    let minutes=date.getMinutes()
+    let seconds=date.getSeconds()
     if (minutes<10) {
       minutesString=`0${minutes}`
     } else {
@@ -161,16 +115,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(2, 76, 182)'//rgb(189, 134, 9)'//rgb(255, 204, 2)'//rgb(5, 121, 255)'
   },
   timeText: {
-    fontSize: 75,
+    fontSize: 60,
     textAlign: "center",
     color: 'white',
-    margin: 10,
+    margin: 6,
   },
   dateText: {
-    fontSize: 50,
+    fontSize: 40,
     textAlign: "center",
     color: 'white',
-    margin: 10,
+    margin: 6,
   },
 })
 
