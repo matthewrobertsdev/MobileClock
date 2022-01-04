@@ -20,7 +20,7 @@ const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? DarkTheme : DefaultTheme
   return (
-    <NavigationContainer theme={theme}>
+    <NavigationContainer theme={theme} children={null}>
       <RootStackScreen/>
     </NavigationContainer>
   );

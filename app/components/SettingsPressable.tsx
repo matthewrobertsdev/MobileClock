@@ -2,7 +2,7 @@
 import React from 'react';
 
 //react native import
-import {Pressable, Text, useColorScheme} from 'react-native';
+import {Pressable, useColorScheme} from 'react-native';
 
 import {
   Colors,
@@ -18,7 +18,7 @@ function SettingsPressable({screenName}) {
     <Pressable
       onPress={()=>{navigation.navigate(screenName)}}
       style={({pressed}) => [{
-        backgroundColor: isDarkMode ? 'black' : 'white', //? Colors.darker : Colors.lighter, 
+        backgroundColor: isDarkMode ? Colors.darker : Colors.lighter, //? 'black' : 'white',
         alignItems: 'flex-end', marginTop: 10, marginRight: 10, 
         alignSelf: 'flex-end', padding: 6, borderRadius: 30
       }]}>

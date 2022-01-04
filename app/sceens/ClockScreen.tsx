@@ -38,7 +38,7 @@
    const [dateString, setDateString]=useState(getDateStringFromDate(new Date()))
  
    const safeAreaStyle = {
-     //backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
      //height: Platform.OS === 'ios' ? 50 : 0,
      flex: 1,
    };
@@ -48,7 +48,7 @@
      width: '100%',
      justifyContent: 'flex-end',
      marginBottom: 0,
-     backgroundColor: isDarkMode ? 'black' : 'white', //isDarkMode ? Colors.darker : Colors.lighter,
+     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter, //isDarkMode ? 'black' : 'white',
    }
  
    const adStyle = {
