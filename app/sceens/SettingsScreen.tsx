@@ -13,7 +13,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SwitchWithText from '../components/SwitchWithText'
 import ButtonWithMargin from '../components/ButtonWithMargin'
 
-const SettingsScreen: () => Node = () => {
+
+function SettingsScreen({route}) {
+  let state=route.params.state
   //save settings
   const saveShowSeconds = async (state) => {
     try {
@@ -55,61 +57,35 @@ const SettingsScreen: () => Node = () => {
       // saving error
     }
   }
-  //state
-  const [showsSeconds, setShowSeconds] = useState(false);
+  const [showsSeconds, setShowSeconds] = useState(state.showsSeconds);
   const toggleSeconds=()=>setShowSeconds(previousState=>{
     saveShowSeconds(!previousState)
+    state.showsSeconds=!previousState
     return !previousState})
-  const [uses24HourTime, setUses24HourTime] = useState(false);
+  const [uses24HourTime, setUses24HourTime] = useState(state.use24HourTime);
   const toggle24HourTime=()=>setUses24HourTime(previousState=>{
     saveUse24HourTime(!previousState)
+    state.uses24HourTime=!previousState
     return !previousState})
-  const [showsDate, setShowsDate] = useState(true);
+  const [showsDate, setShowsDate] = useState(state.showsDate);
   const toggleShowsDate=()=>setShowsDate(previousState=>{
     saveShowsDate(!previousState)
+    state.showsDate=!previousState
     return !previousState
   })
-  const [showsDayOfWeek, setShowsDayOfWeek] = useState(true);
+  const [showsDayOfWeek, setShowsDayOfWeek] = useState(state.showsDayOfWeek);
   const toggleShowsDayOfWeek=()=>setShowsDayOfWeek(previousState=>{
     saveShowsDayOfWeek(!previousState)
+    state.showsDayOfWeek=!previousState
     return !previousState
   })
-  const [usesNumericalDate, setUsesNumericalDate] = useState(false);
+  const [usesNumericalDate, setUsesNumericalDate] = useState(state.usesNumericalDate);
   const toggleUsesNumericalDate=()=>setUsesNumericalDate(previousState=>{
     saveUsesNumericalDate(!previousState)
+    state.usesNumericalDate=!previousState
     return !previousState
   })
-
-  //load settings
-  const getData = async () => {
-    try {
-      const secondsPreference = JSON.parse(await AsyncStorage.getItem('showsSeconds'))
-      if(secondsPreference !== null) {
-        setShowSeconds(secondsPreference)
-      }
-      const twentyFourHourPreference = JSON.parse(await AsyncStorage.getItem('uses24HourTime'))
-      if(twentyFourHourPreference !== null) {
-        setUses24HourTime(twentyFourHourPreference)
-      }
-      const showsDatePreference = JSON.parse(await AsyncStorage.getItem('showsDate'))
-      if(showsDatePreference !== null) {
-        setShowsDate(showsDatePreference)
-      }
-      const showsDayOfWeekPreference = JSON.parse(await AsyncStorage.getItem('showsDayOfWeek'))
-      if(showsDayOfWeekPreference !== null) {
-        setShowsDayOfWeek(showsDayOfWeekPreference)
-      }
-      const usesNumericalDatePreference = JSON.parse(await AsyncStorage.getItem('usesNumericalDate'))
-      if(usesNumericalDatePreference !== null) {
-        setUsesNumericalDate(usesNumericalDatePreference)
-      }
-    } catch(e) {
-      // error reading value
-    }
-  }
-  //initialize with settings
   useEffect(() => {
-    getData()
   }, []);
   //view
   return (
