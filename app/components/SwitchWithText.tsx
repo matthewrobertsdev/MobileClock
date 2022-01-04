@@ -13,7 +13,7 @@ function SwitchWthText(props) {
   return (
     <View style={{flexDirection: 'row', alignItems: 'center', width: 200, justifyContent: 'space-between', margin: 10}}>
       <Text style={{color: textColor}}>{props.text}</Text>
-      <Switch/>
+      <Switch onValueChange={props.toggleSwitch} value={props.isEnabled}/>
     </View>
   );
 }

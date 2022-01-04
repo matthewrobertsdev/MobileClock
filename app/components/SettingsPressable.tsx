@@ -18,7 +18,7 @@ function SettingsPressable({screenName}) {
     <Pressable
       onPress={()=>{navigation.navigate(screenName)}}
       style={({pressed}) => [{
-        backgroundColor: isDarkMode ? Colors.darker : Colors.lighter, 
+        backgroundColor: isDarkMode ? 'black' : 'white', //? Colors.darker : Colors.lighter, 
         alignItems: 'flex-end', marginTop: 10, marginRight: 10, 
         alignSelf: 'flex-end', padding: 6, borderRadius: 30
       }]}>

@@ -6,20 +6,10 @@
  * @flow strict-local
  */
 
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
   useColorScheme,
-  View,
-  Platform,
 } from 'react-native';
-
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
 
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 
