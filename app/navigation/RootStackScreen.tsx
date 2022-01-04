@@ -1,7 +1,7 @@
 import React from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
-import ClockScreen from './ClockScreen'
-import SettingsScreen from './SettingsScreen'
+import ClockScreen from '../sceens/ClockScreen'
+import SettingsScreen from '../sceens/SettingsScreen'
 
 const RootStack = createNativeStackNavigator();
 

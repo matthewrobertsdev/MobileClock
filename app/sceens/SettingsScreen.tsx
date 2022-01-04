@@ -7,8 +7,8 @@ import {
 
 import type {Node} from 'react';
 
-import SwitchWithText from './SwitchWithText'
-import ButtonWithMargin from './ButtonWithMargin'
+import SwitchWithText from '../components/SwitchWithText'
+import ButtonWithMargin from '../components/ButtonWithMargin'
 
 const SettingsScreen: () => Node = () => {
   return (

@@ -22,7 +22,7 @@
    Colors,
  } from 'react-native/Libraries/NewAppScreen';
  
- import SettingsPressable from './SettingsPressable'
+ import SettingsPressable from '../components/SettingsPressable'
  
  const ClockScreen: ({ navigation }) => Node = () => {
    const isDarkMode = useColorScheme() === 'dark';

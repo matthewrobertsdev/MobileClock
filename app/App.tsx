@@ -21,14 +21,16 @@ import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 
 
-import RootStackScreen from './RootStackScreen'
+import RootStackScreen from './navigation/RootStackScreen'
 
 const App: () => Node = () => {
+  const isDarkMode = useColorScheme() === 'dark';
+  const theme = isDarkMode ? DarkTheme : DefaultTheme
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={theme}>
       <RootStackScreen/>
     </NavigationContainer>
   );
