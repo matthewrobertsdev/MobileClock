@@ -2,47 +2,30 @@ import React from 'react';
 
 import {
   View,
-  Button,
-  Switch,
-  Text,
   ScrollView,
 } from 'react-native';
 
 import type {Node} from 'react';
 
+import SwitchWithText from './SwitchWithText'
+import ButtonWithMargin from './ButtonWithMargin'
+
 const SettingsScreen: () => Node = () => {
   return (
-    <View>
       <ScrollView>
-      <View style={{margin: 10}}><Button title={'Choose Color'}></Button></View>
+      <ButtonWithMargin text='Choose Color'/>
       <View style={{flex: 1, alignItems: 'center'}}>
-        <View style={{flexDirection: 'row', alignItems: 'center', width: 200, justifyContent: 'space-between', margin: 10}}>
-          <Text>Show Seconds</Text>
-          <Switch/>
-        </View>
-        <View style={{flexDirection: 'row', alignItems: 'center', width: 200, justifyContent: 'space-between', margin: 10}}>
-          <Text>Use 24 Hour Time</Text>
-          <Switch/>
-        </View>
-        <View style={{flexDirection: 'row', alignItems: 'center', width: 200, justifyContent: 'space-between', margin: 10}}>
-          <Text>Show Date</Text>
-          <Switch/>
-        </View>
-        <View style={{flexDirection: 'row', alignItems: 'center', width: 200, justifyContent: 'space-between', margin: 10}}>
-          <Text>Show Day of Week</Text>
-          <Switch/>
-        </View>
-        <View style={{flexDirection: 'row', alignItems: 'center', width: 200, justifyContent: 'space-between', margin: 10}}>
-          <Text>Use Numerical Date</Text>
-          <Switch/>
-        </View>
+        <SwitchWithText text='Show Seconds'/>
+        <SwitchWithText text='Use 24 Hour Time'/>
+        <SwitchWithText text='Show Date'/>
+        <SwitchWithText text='Show Day of Week'/>
+        <SwitchWithText text='Use Numerical Date'/>
       </View>
-      <View style={{margin: 10}}><Button title={'Remove Ads'}></Button></View>
-      <View style={{margin: 10}}><Button title={'Restore Purchases'}></Button></View>
-      <View style={{margin: 10}}><Button title={'Help...'}></Button></View>
-      <View style={{margin: 10}}><Button title={'About Spiffy Clock'}></Button></View>
+      <ButtonWithMargin text='Remove Ads'/>
+      <ButtonWithMargin text='Restore Purchases'/>
+      <ButtonWithMargin text='Help...'/>
+      <ButtonWithMargin text='About Spiffy Clock'/>
       </ScrollView>
-    </View>
   );
 }
 export default SettingsScreen;
