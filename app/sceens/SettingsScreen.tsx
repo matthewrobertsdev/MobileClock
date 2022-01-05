@@ -6,16 +6,18 @@ import {
   SafeAreaView
 } from 'react-native';
 
-import type {Node} from 'react';
+import {useContext} from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import SwitchWithText from '../components/SwitchWithText'
 import ButtonWithMargin from '../components/ButtonWithMargin'
+import { SettingsContext } from '../navigation/RootStackScreen';
 
 
 function SettingsScreen({route}) {
   let state=route.params.state
+  const [settings, setSettings] = useContext(SettingsContext);
   //save settings
   const saveShowSeconds = async (state) => {
     try {
@@ -61,28 +63,33 @@ function SettingsScreen({route}) {
   const toggleSeconds=()=>setShowSeconds(previousState=>{
     saveShowSeconds(!previousState)
     state.showsSeconds=!previousState
+    setSettings(state)
     return !previousState})
-  const [uses24HourTime, setUses24HourTime] = useState(state.use24HourTime);
+  const [uses24HourTime, setUses24HourTime] = useState(state.uses24HourTime);
   const toggle24HourTime=()=>setUses24HourTime(previousState=>{
     saveUse24HourTime(!previousState)
     state.uses24HourTime=!previousState
+    setSettings(state)
     return !previousState})
   const [showsDate, setShowsDate] = useState(state.showsDate);
   const toggleShowsDate=()=>setShowsDate(previousState=>{
     saveShowsDate(!previousState)
     state.showsDate=!previousState
+    setSettings(state)
     return !previousState
   })
   const [showsDayOfWeek, setShowsDayOfWeek] = useState(state.showsDayOfWeek);
   const toggleShowsDayOfWeek=()=>setShowsDayOfWeek(previousState=>{
     saveShowsDayOfWeek(!previousState)
     state.showsDayOfWeek=!previousState
+    setSettings(state)
     return !previousState
   })
   const [usesNumericalDate, setUsesNumericalDate] = useState(state.usesNumericalDate);
   const toggleUsesNumericalDate=()=>setUsesNumericalDate(previousState=>{
     saveUsesNumericalDate(!previousState)
     state.usesNumericalDate=!previousState
+    setSettings(state)
     return !previousState
   })
   useEffect(() => {

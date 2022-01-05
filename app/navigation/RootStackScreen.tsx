@@ -1,10 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Button, Platform } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import ClockScreen from '../sceens/ClockScreen'
 import SettingsScreen from '../sceens/SettingsScreen'
 import AndroidLoadingScreen from '../sceens/AndroidLoadingScreen'
-
 
 const RootStack = createNativeStackNavigator();
 let modalScreenOptions
@@ -24,14 +23,21 @@ if (Platform.OS === 'ios') {
     { presentation: 'modal', }
 }
 
+export const SettingsContext = React.createContext();
+
+
 function RootStackScreen() {
+  const [settings, setSettings]=useState(undefined)
   return (
+    <SettingsContext.Provider value={[settings, setSettings]}>
     <RootStack.Navigator>
         {returnMainRootStackGroup()}
       <RootStack.Group screenOptions={modalScreenOptions}>
         <RootStack.Screen name="Settings" component={SettingsScreen} />
       </RootStack.Group>
     </RootStack.Navigator>
+    </SettingsContext.Provider>
+
   );
 }
 function returnMainRootStackGroup() {

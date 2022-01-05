@@ -6,12 +6,10 @@
  * @flow strict-local
  */
 
-import React, { useEffect, useState } from 'react';
-import type { Node } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
   SafeAreaView,
   StatusBar,
-  StyleSheet,
   Text,
   useColorScheme,
   View,
@@ -22,32 +20,26 @@ import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { useIsFocused } from '@react-navigation/native';
-
+import {styles} from '../style/Style'
 
 import SettingsPressable from '../components/SettingsPressable'
 import loadSettings from '../state/loadSettings'
+import { SettingsContext } from '../navigation/RootStackScreen';
+import {twentyFourHourWithSeconds, twentyFourHourNoSeconds, getDateStringFromDate} from '../clockFunctions/ClockFunctions'
 
-function ClockScreen({ route, navigation }) {
+function ClockScreen() {
+  //the timer variable
   let startTimer
   const [loaded, setLoaded] = useState(false)
-  const [settings, setSettings] = useState(null)
-
+  const [settings, setSettings] = useContext(SettingsContext);
   const isDarkMode = useColorScheme() === 'dark';
 
-  let use24HourTime = false;
-
-  const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday',
-    'Thursday', 'Friday', 'Saturday'];
-  const months = ['January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'];
-
-  const [timeString, setTimeString] = useState(getTimeStringFromDate(new Date()))
-  const [dateString, setDateString] = useState(getDateStringFromDate(new Date()))
+  //date and time string state 
+  const [timeString, setTimeString] = useState('')
+  const [dateString, setDateString] = useState('')
 
   const safeAreaStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    //height: Platform.OS === 'ios' ? 50 : 0,
     flex: 1,
   };
 
@@ -59,39 +51,52 @@ function ClockScreen({ route, navigation }) {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter, //isDarkMode ? 'black' : 'white',
   }
 
-  const adStyle = {
-    height: 50,
-    width: '100%',
-    backgroundColor: 'rgb(2, 76, 182)'//'rgb(96, 31, 159)'//rgb(255, 204, 2)'//rgb(5, 121, 255)'
-  }
-
   useEffect(() => {
-    if (route.params === undefined) {
+    //load settings if necessary
+    if (settings===undefined) {
       loadSettings().then(savedState => {
+        console.log('efgh')
         setSettings(savedState)
+        setLoaded(true)
       })
     } else {
-      setSettings(route.params.state)
+      setLoaded(true)
     }
-    setLoaded(true)
-  }, [])
-
-  useEffect(() => {
     if (loaded) {
-      let startTimer = setInterval(() => {
-        const date = new Date();
-        setTimeString(getTimeStringFromDate(date));
-        setDateString(getDateStringFromDate(date));
+      //clear any old timer
+      if (startTimer !== undefined) {
+        clearTimeout(startTimer)
+      }
+      console.log('should start timer')
+      //get initial date and time strings
+      const startDate=new Date()
+      if (settings.showsSeconds) {
+        setTimeString(twentyFourHourWithSeconds(startDate))
+      } else {
+        setTimeString(twentyFourHourNoSeconds(startDate))
+      }
+      setDateString(getDateStringFromDate(startDate))
+      //start the new timer
+      startTimer = setInterval(() => {
+        const date=new Date()
+        console.log(date.getMilliseconds())
+        if (settings.showsSeconds) {
+          setTimeString(twentyFourHourWithSeconds(date))
+        } else {
+          setTimeString(twentyFourHourNoSeconds(date))
+        }
+        setDateString(getDateStringFromDate(startDate))
       }, 100);
       return () => {
         //clear the timer
-        if (startTimer !== null) {
+        if (startTimer !== undefined) {
           clearTimeout(startTimer)
         }
       };
     }
-  }, [settings]);
+  }, [loaded])
 
+  //if settings are undefined, display empty ui
   if (settings === undefined) {
     return (
       <SafeAreaView style={safeAreaStyle}>
@@ -100,7 +105,8 @@ function ClockScreen({ route, navigation }) {
         </View>
       </SafeAreaView>
     )
-  }
+  } else {
+  //if settings are loaded, display ui
   return (
     <SafeAreaView style={safeAreaStyle}>
       <StatusBar />
@@ -115,66 +121,13 @@ function ClockScreen({ route, navigation }) {
           {/* Date Text */}
         </View>
         {/* Space for ad */}
-        <View style={adStyle} />
+        <View style={styles.adStyle} />
         {/* Space to separate ad from ui */}
         <View style={bottomStyle} />
       </View>
     </SafeAreaView>
   );
-  //miltary time with seconds
-  function getTimeStringFromDate(date: Date) {
-    let minutesString = ''
-    let secondsString = ''
-    let minutes = date.getMinutes()
-    let seconds = date.getSeconds()
-    let hours = date.getHours()
-    if (minutes < 10) {
-      minutesString = `0${minutes}`
-    } else {
-      minutesString = `${minutes}`
-    }
-    if (seconds < 10) {
-      secondsString = `0${seconds}`
-    } else {
-      secondsString = `${seconds}`
-    }
-    if (use24HourTime === false) {
-      if (hours > 12) {
-        hours -= 12
-      }
-    }
-    return `${hours}:${minutesString}:${secondsString}`;
   }
-
-  //day of week with month and day
-  function getDateStringFromDate(date: Date) {
-    return `${daysOfWeek[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}`
-  }
-
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgb(2, 76, 182)'//'rgb(96, 31, 159)'rgb(189, 134, 9)'//rgb(255, 204, 2)'//rgb(5, 121, 255)'
-  },
-  settingsContainer: {
-    backgroundColor: 'rgb(2, 76, 182)'
-  },
-  timeText: {
-    fontSize: 60,
-    textAlign: "center",
-    color: 'white',
-    margin: 5,
-  },
-  dateText: {
-    fontSize: 30,
-    textAlign: "center",
-    color: 'white',
-    margin: 5,
-  },
-})
 
 export default ClockScreen;
-
