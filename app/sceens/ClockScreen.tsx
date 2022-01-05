@@ -55,7 +55,6 @@ function ClockScreen() {
     //load settings if necessary
     if (settings===undefined) {
       loadSettings().then(savedState => {
-        console.log('efgh')
         setSettings(savedState)
         setLoaded(true)
       })
@@ -115,7 +114,7 @@ function ClockScreen() {
       <View style={styles.container}>
         <View style={styles.container}>
           {/* Time Text */}
-          <Text style={styles.timeText} >{timeString}</Text>
+          <Text style={{...styles.timeText, fontSize: settings.showsSeconds ? 80 : 120}} >{timeString}</Text>
           <Text style={styles.dateText} >{dateString}</Text>
           {/* Date Text */}
         </View>
