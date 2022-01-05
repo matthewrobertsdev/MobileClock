@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 
 import {
   View,
@@ -8,14 +8,16 @@ import {
 
 import loadSettings from '../state/loadSettings'
 
+import { SettingsContext } from '../navigation/RootStackScreen';
+
 function AndroidLoadingScreen({navigation}) {
 
-  const [settings, useSettings]=useState(null)
+  const [settings, setSettings] = useContext(SettingsContext);
 
   //initialize with settings
   useEffect(() => {
     loadSettings().then(savedState => {
-      useSettings(savedState)
+      setSettings(savedState)
     })
     setTimeout(()=>{navigation.navigate('Clock'), {state: settings}}, 1000)
   }, []);

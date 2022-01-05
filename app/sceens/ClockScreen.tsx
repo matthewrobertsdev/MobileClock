@@ -79,7 +79,6 @@ function ClockScreen() {
       //start the new timer
       startTimer = setInterval(() => {
         const date=new Date()
-        console.log(date.getMilliseconds())
         if (settings.showsSeconds) {
           setTimeString(twentyFourHourWithSeconds(date))
         } else {
