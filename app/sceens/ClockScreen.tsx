@@ -14,18 +14,19 @@ import {
   useColorScheme,
   View,
   Platform,
+  Dimensions,
 } from 'react-native';
 
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
-import {styles} from '../style/Style'
+import { styles } from '../style/Style'
 
 import SettingsPressable from '../components/SettingsPressable'
 import loadSettings from '../state/loadSettings'
 import { SettingsContext } from '../navigation/RootStackScreen';
-import {twentyFourHourWithSeconds, twentyFourHourNoSeconds, getDateStringFromDate} from '../clockFunctions/ClockFunctions'
+import { twentyFourHourWithSeconds, twentyFourHourNoSeconds, getDateStringFromDate } from '../clockFunctions/ClockFunctions'
 
 function ClockScreen() {
   //the timer variable
@@ -33,6 +34,9 @@ function ClockScreen() {
   const [loaded, setLoaded] = useState(false)
   const [settings, setSettings] = useContext(SettingsContext);
   const isDarkMode = useColorScheme() === 'dark';
+  const window = Dimensions.get("window");
+  const [dimensions, setDimensions] = useState({ window });
+  const [multiplier, setMultiplier] = useState(1);
 
   //date and time string state 
   const [timeString, setTimeString] = useState('')
@@ -52,8 +56,32 @@ function ClockScreen() {
   }
 
   useEffect(() => {
+    console.log('width: '+window.width)
+    console.log('height: '+window.height)
+    if (window.width>700 && window.height>700) {
+      setMultiplier(2)
+    } else if (window.width>1050 && window.height>1050){
+      setMultiplier(3)
+    } else {
+      setMultiplier(1)
+    }
+    const subscription = Dimensions.addEventListener(
+      "change",
+      ({ window }) => {
+        setDimensions({ window });
+        if (window.width>1000 && window.height>500) {
+          setMultiplier(2)
+        } else {
+          setMultiplier(1)
+        }
+      }
+    );
+    return () => subscription?.remove();
+  }, [window]);
+
+  useEffect(() => {
     //load settings if necessary
-    if (settings===undefined) {
+    if (settings === undefined) {
       loadSettings().then(savedState => {
         setSettings(savedState)
         setLoaded(true)
@@ -68,22 +96,10 @@ function ClockScreen() {
       }
       console.log('should start timer')
       //get initial date and time strings
-      const startDate=new Date()
-      if (settings.showsSeconds) {
-        setTimeString(twentyFourHourWithSeconds(startDate))
-      } else {
-        setTimeString(twentyFourHourNoSeconds(startDate))
-      }
-      setDateString(getDateStringFromDate(startDate))
+      updateClock()
       //start the new timer
       startTimer = setInterval(() => {
-        const date=new Date()
-        if (settings.showsSeconds) {
-          setTimeString(twentyFourHourWithSeconds(date))
-        } else {
-          setTimeString(twentyFourHourNoSeconds(date))
-        }
-        setDateString(getDateStringFromDate(startDate))
+        updateClock()
       }, 100);
       return () => {
         //clear the timer
@@ -104,27 +120,39 @@ function ClockScreen() {
       </SafeAreaView>
     )
   } else {
-  //if settings are loaded, display ui
-  return (
-    <SafeAreaView style={safeAreaStyle}>
-      <StatusBar />
-      <View style={styles.settingsContainer}>
-        <SettingsPressable state={settings} screenName='Settings' />
-      </View>
-      <View style={styles.container}>
-        <View style={styles.container}>
-          {/* Time Text */}
-          <Text style={{...styles.timeText, fontSize: settings.showsSeconds ? 80 : 120}} >{timeString}</Text>
-          <Text style={styles.dateText} >{dateString}</Text>
-          {/* Date Text */}
+    //if settings are loaded, display ui
+    return (
+      <SafeAreaView style={safeAreaStyle}>
+        <StatusBar />
+        <View style={styles.settingsContainer}>
+          <SettingsPressable state={settings} screenName='Settings' />
         </View>
-        {/* Space for ad */}
-        <View style={styles.adStyle} />
-        {/* Space to separate ad from ui */}
-        <View style={bottomStyle} />
-      </View>
-    </SafeAreaView>
-  );
+        <View style={styles.container}>
+          <View style={styles.container}>
+            {/* Time Text */}
+            <Text style={{ ...styles.timeText, fontSize: settings.showsSeconds ? 70*multiplier : 110*multiplier }} >
+              {timeString}</Text>
+            <Text style={{...styles.dateText, fontSize: 22.5*multiplier}} >
+              {dateString}
+            </Text>
+            {/* Date Text */}
+          </View>
+          {/* Space for ad */}
+          <View style={styles.adStyle} />
+          {/* Space to separate ad from ui */}
+          <View style={bottomStyle} />
+        </View>
+      </SafeAreaView>
+    );
+  }
+  function updateClock() {
+    const date = new Date()
+    if (settings.showsSeconds) {
+      setTimeString(twentyFourHourWithSeconds(date))
+    } else {
+      setTimeString(twentyFourHourNoSeconds(date))
+    }
+    setDateString(getDateStringFromDate(date))
   }
 };
 

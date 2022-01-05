@@ -17,13 +17,13 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgb(2, 76, 182)'
   },
   timeText: {
-    fontSize: 60,
+    fontSize: 40,
     textAlign: "center",
     color: 'white',
     margin: 5,
   },
   dateText: {
-    fontSize: 30,
+    fontSize: 22.5,
     textAlign: "center",
     color: 'white',
     margin: 5,
