@@ -26,7 +26,9 @@ import { styles } from '../style/Style'
 import SettingsPressable from '../components/SettingsPressable'
 import loadSettings from '../state/loadSettings'
 import { SettingsContext } from '../navigation/RootStackScreen';
-import { twentyFourHourWithSeconds, twentyFourHourNoSeconds, getDateStringFromDate } from '../clockFunctions/ClockFunctions'
+import { twentyFourHourWithSeconds, twentyFourHourNoSeconds, 
+  twelveHourWithSeconds, twelveHourNoSeconds,
+   getDateStringFromDate } from '../clockFunctions/ClockFunctions'
 
 function ClockScreen() {
   //the timer variable
@@ -58,21 +60,35 @@ function ClockScreen() {
   useEffect(() => {
     console.log('width: '+window.width)
     console.log('height: '+window.height)
-    if (window.width>700 && window.height>700) {
-      setMultiplier(2)
-    } else if (window.width>1050 && window.height>1050){
+    if (window.width>1100 && window.height>800){
+      setMultiplier(4)
+    } else if (window.width>900 && window.height>650){
       setMultiplier(3)
-    } else {
+    } else if (window.width>700 && window.height>500) {
+      setMultiplier(2)
+    } else if (window.width>500 && window.height>350) {
+      setMultiplier(1.5)
+    }else if (window.width>300 && window.height>200){
       setMultiplier(1)
+    } else {
+      setMultiplier(0.75)
     }
     const subscription = Dimensions.addEventListener(
       "change",
       ({ window }) => {
         setDimensions({ window });
-        if (window.width>1000 && window.height>500) {
+        if (window.width>1100 && window.height>800){
+          setMultiplier(4)
+        } else if (window.width>900 && window.height>650){
+          setMultiplier(3)
+        } else if (window.width>700 && window.height>500) {
           setMultiplier(2)
-        } else {
+        } else if (window.width>500 && window.height>350) {
+          setMultiplier(1.5)
+        }else if (window.width>300 && window.height>200){
           setMultiplier(1)
+        } else {
+          setMultiplier(0.75)
         }
       }
     );
@@ -148,9 +164,17 @@ function ClockScreen() {
   function updateClock() {
     const date = new Date()
     if (settings.showsSeconds) {
-      setTimeString(twentyFourHourWithSeconds(date))
+      if (settings.uses24HourTime) {
+        setTimeString(twentyFourHourWithSeconds(date))
+      } else {
+        setTimeString(twelveHourWithSeconds(date))
+      }
     } else {
-      setTimeString(twentyFourHourNoSeconds(date))
+      if (settings.uses24HourTime) {
+        setTimeString(twentyFourHourNoSeconds(date))
+      } else {
+        setTimeString(twelveHourNoSeconds(date))
+      }
     }
     setDateString(getDateStringFromDate(date))
   }
