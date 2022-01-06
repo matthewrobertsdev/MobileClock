@@ -109,7 +109,7 @@ function SettingsScreen({route}) {
         <SwitchWithText toggleSwitch={toggleShowsDayOfWeek} 
         isEnabled={showsDayOfWeek} text='Show Day of Week'/>
         <SwitchWithText toggleSwitch={toggleUsesNumericalDate} 
-        isEnabled={usesNumericalDate} text='Use Numerical Date'/>
+        isEnabled={usesNumericalDate} disabled={!showsDate} text='Use Numerical Date'/>
       </View>
       <ButtonWithMargin text='Remove Ads'/>
       <ButtonWithMargin text='Restore Purchases'/>

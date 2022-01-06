@@ -1,5 +1,5 @@
 /**
- * Sample React Native App
+ * Spiffy Clock Clock Screen
  * https://github.com/facebook/react-native
  *
  * @format
@@ -23,12 +23,20 @@ import {
 
 import { styles } from '../style/Style'
 
+//settings pressable
 import SettingsPressable from '../components/SettingsPressable'
+//load settings from storage
 import loadSettings from '../state/loadSettings'
+//holds settings
 import { SettingsContext } from '../navigation/RootStackScreen';
+//clock functions
 import { twentyFourHourWithSeconds, twentyFourHourNoSeconds, 
   twelveHourWithSeconds, twelveHourNoSeconds,
-   getDateStringFromDate } from '../clockFunctions/ClockFunctions'
+   getWrittenDateString, 
+   getDayOfWeekStringOnly,
+   getWrittenDateStingOnly,
+   getNumericalDateString,
+   getNumericalDateStringOnly} from '../clockFunctions/ClockFunctions'
 
 function ClockScreen() {
   //the timer variable
@@ -141,17 +149,19 @@ function ClockScreen() {
       <SafeAreaView style={safeAreaStyle}>
         <StatusBar />
         <View style={styles.settingsContainer}>
+          {/* Button to take you to settings */}
           <SettingsPressable state={settings} screenName='Settings' />
         </View>
         <View style={styles.container}>
           <View style={styles.container}>
             {/* Time Text */}
             <Text style={{ ...styles.timeText, fontSize: settings.showsSeconds ? 70*multiplier : 110*multiplier }} >
-              {timeString}</Text>
+              {timeString}
+            </Text>
+            {/* Date Text */}
             <Text style={{...styles.dateText, fontSize: 22.5*multiplier}} >
               {dateString}
             </Text>
-            {/* Date Text */}
           </View>
           {/* Space for ad */}
           <View style={styles.adStyle} />
@@ -176,7 +186,27 @@ function ClockScreen() {
         setTimeString(twelveHourNoSeconds(date))
       }
     }
-    setDateString(getDateStringFromDate(date))
+    if (settings.usesNumericalDate) {
+      if (settings.showsDayOfWeek && settings.showsDate) {
+        setDateString(getNumericalDateString(date))
+      } else if (settings.showsDayOfWeek) {
+        setDateString(getDayOfWeekStringOnly(date))
+      } else if (settings.showsDate) {
+        setDateString(getNumericalDateStringOnly(date))
+      } else {
+        setDateString('')
+      }
+    } else {
+      if (settings.showsDayOfWeek && settings.showsDate) {
+        setDateString(getWrittenDateString(date))
+      } else if (settings.showsDayOfWeek) {
+        setDateString(getDayOfWeekStringOnly(date))
+      } else if (settings.showsDate) {
+        setDateString(getWrittenDateStingOnly(date))
+      } else {
+        setDateString('')
+      }
+    }
   }
 };
 

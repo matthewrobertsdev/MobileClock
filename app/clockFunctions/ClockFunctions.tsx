@@ -81,7 +81,24 @@ export function twelveHourNoSeconds(date: Date) {
 }
 
 //day of week with month and day
-export function getDateStringFromDate(date: Date) {
-  return 'Wednesday, September 31'
+export function getWrittenDateString(date: Date) {
+  //return 'Wednesday, September 31'
   return `${daysOfWeek[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}`
+}
+
+export function getDayOfWeekStringOnly(date: Date) {
+  return `${daysOfWeek[date.getDay()]}`
+}
+
+export function getWrittenDateStingOnly(date: Date) {
+  return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
+}
+
+export function getNumericalDateStringOnly(date: Date) {
+  return `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`
+}
+
+export function getNumericalDateString(date: Date) {
+  //return 'Wednesday, September 31'
+  return `${daysOfWeek[date.getDay()]}, ${[date.getMonth()+1]}/${date.getDate()}`
 }
