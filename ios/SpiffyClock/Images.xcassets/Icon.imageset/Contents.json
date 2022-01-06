@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "128.png",
+      "filename" : "SpiffyClock6@1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "256.png",
+      "filename" : "SpiffyClock6@2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "512.png",
+      "filename" : "SpiffyClock6@3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
