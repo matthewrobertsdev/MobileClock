@@ -15,8 +15,7 @@ import ButtonWithMargin from '../components/ButtonWithMargin'
 import { SettingsContext } from '../navigation/RootStackScreen';
 
 
-function SettingsScreen({route}) {
-  let state=route.params.state
+function SettingsScreen({navigation}) {
   const [settings, setSettings] = useContext(SettingsContext);
   //save settings
   const saveShowSeconds = async (state) => {
@@ -59,37 +58,37 @@ function SettingsScreen({route}) {
       // saving error
     }
   }
-  const [showsSeconds, setShowSeconds] = useState(state.showsSeconds);
+  const [showsSeconds, setShowSeconds] = useState(settings.showsSeconds);
   const toggleSeconds=()=>setShowSeconds(previousState=>{
     saveShowSeconds(!previousState)
-    state.showsSeconds=!previousState
-    setSettings(state)
+    settings.showsSeconds=!previousState
+    setSettings(settings)
     return !previousState})
-  const [uses24HourTime, setUses24HourTime] = useState(state.uses24HourTime);
+  const [uses24HourTime, setUses24HourTime] = useState(settings.uses24HourTime);
   const toggle24HourTime=()=>setUses24HourTime(previousState=>{
     saveUse24HourTime(!previousState)
-    state.uses24HourTime=!previousState
-    setSettings(state)
+    settings.uses24HourTime=!previousState
+    setSettings(settings)
     return !previousState})
-  const [showsDate, setShowsDate] = useState(state.showsDate);
+  const [showsDate, setShowsDate] = useState(settings.showsDate);
   const toggleShowsDate=()=>setShowsDate(previousState=>{
     saveShowsDate(!previousState)
-    state.showsDate=!previousState
-    setSettings(state)
+    settings.showsDate=!previousState
+    setSettings(settings)
     return !previousState
   })
-  const [showsDayOfWeek, setShowsDayOfWeek] = useState(state.showsDayOfWeek);
+  const [showsDayOfWeek, setShowsDayOfWeek] = useState(settings.showsDayOfWeek);
   const toggleShowsDayOfWeek=()=>setShowsDayOfWeek(previousState=>{
     saveShowsDayOfWeek(!previousState)
-    state.showsDayOfWeek=!previousState
-    setSettings(state)
+    settings.showsDayOfWeek=!previousState
+    setSettings(settings)
     return !previousState
   })
-  const [usesNumericalDate, setUsesNumericalDate] = useState(state.usesNumericalDate);
+  const [usesNumericalDate, setUsesNumericalDate] = useState(settings.usesNumericalDate);
   const toggleUsesNumericalDate=()=>setUsesNumericalDate(previousState=>{
     saveUsesNumericalDate(!previousState)
-    state.usesNumericalDate=!previousState
-    setSettings(state)
+    settings.usesNumericalDate=!previousState
+    setSettings(settings)
     return !previousState
   })
   useEffect(() => {
@@ -98,7 +97,7 @@ function SettingsScreen({route}) {
   return (
     <SafeAreaView>
       <ScrollView>
-      <ButtonWithMargin text='Choose Color'/>
+      <ButtonWithMargin text='Choose Color' onPress={()=>navigation.navigate('Colors')}/>
       <View style={{flex: 1, alignItems: 'center'}}>
         <SwitchWithText toggleSwitch={toggleSeconds} 
         isEnabled={showsSeconds} text='Show Seconds'/>

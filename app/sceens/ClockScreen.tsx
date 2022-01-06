@@ -150,9 +150,9 @@ function ClockScreen() {
         <StatusBar />
         <View style={styles.settingsContainer}>
           {/* Button to take you to settings */}
-          <SettingsPressable state={settings} screenName='Settings' />
+          <SettingsPressable screenName='Settings' />
         </View>
-          <View style={styles.container}>
+          <View style={styles.centeredContainer}>
             {/* Time Text */}
             <Text style={{ ...styles.timeText, fontSize: settings.showsSeconds ? 70*multiplier : 110*multiplier }} >
               {timeString}

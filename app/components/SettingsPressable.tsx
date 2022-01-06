@@ -11,12 +11,12 @@ import { useNavigation } from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-function SettingsPressable({state, screenName}) {
+function SettingsPressable({screenName}) {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation();
   return (
     <Pressable
-      onPress={()=>{navigation.navigate(screenName, {state: state})}}
+      onPress={()=>{navigation.navigate(screenName)}}
       style={({pressed}) => [{
         backgroundColor: isDarkMode ? Colors.darker : Colors.lighter, //? 'black' : 'white',
         alignItems: 'flex-end', marginTop: 10, marginRight: 10, 

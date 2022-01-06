@@ -7,11 +7,15 @@ export const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'rgb(2, 76, 182)'
   },
-  container: {
+  centeredContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgb(2, 76, 182)'
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
   },
   settingsContainer: {
     backgroundColor: 'rgb(2, 76, 182)'

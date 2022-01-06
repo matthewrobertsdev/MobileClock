@@ -3,6 +3,7 @@ import { Button, Platform } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import ClockScreen from '../sceens/ClockScreen'
 import SettingsScreen from '../sceens/SettingsScreen'
+import ColorsScreen from '../sceens/ColorsScreen'
 import AndroidLoadingScreen from '../sceens/AndroidLoadingScreen'
 
 const RootStack = createNativeStackNavigator();
@@ -34,6 +35,7 @@ function RootStackScreen() {
         {returnMainRootStackGroup()}
       <RootStack.Group screenOptions={modalScreenOptions}>
         <RootStack.Screen name="Settings" component={SettingsScreen} />
+        <RootStack.Screen name="Colors" component={ColorsScreen} />
       </RootStack.Group>
     </RootStack.Navigator>
     </SettingsContext.Provider>
