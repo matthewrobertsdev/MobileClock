@@ -74,9 +74,9 @@ function ClockScreen() {
       setMultiplier(3)
     } else if (window.width>700 && window.height>500) {
       setMultiplier(2)
-    } else if (window.width>500 && window.height>350) {
+    } else if (window.width>500 && window.height>400) {
       setMultiplier(1.5)
-    }else if (window.width>300 && window.height>200){
+    }else if (window.width>300 && window.height>300){
       setMultiplier(1)
     } else {
       setMultiplier(0.75)
@@ -91,9 +91,9 @@ function ClockScreen() {
           setMultiplier(3)
         } else if (window.width>700 && window.height>500) {
           setMultiplier(2)
-        } else if (window.width>500 && window.height>350) {
+        } else if (window.width>500 && window.height>400) {
           setMultiplier(1.5)
-        }else if (window.width>300 && window.height>200){
+        }else if (window.width>300 && window.height>300){
           setMultiplier(1)
         } else {
           setMultiplier(0.75)
@@ -152,22 +152,20 @@ function ClockScreen() {
           {/* Button to take you to settings */}
           <SettingsPressable state={settings} screenName='Settings' />
         </View>
-        <View style={styles.container}>
           <View style={styles.container}>
             {/* Time Text */}
             <Text style={{ ...styles.timeText, fontSize: settings.showsSeconds ? 70*multiplier : 110*multiplier }} >
               {timeString}
             </Text>
             {/* Date Text */}
-            <Text style={{...styles.dateText, fontSize: 22.5*multiplier}} >
+            <Text style={{...styles.dateText, fontSize: 25*multiplier}} >
               {dateString}
             </Text>
           </View>
-          {/* Space for ad */}
-          <View style={styles.adStyle} />
-          {/* Space to separate ad from ui */}
-          <View style={bottomStyle} />
-        </View>
+        {/* Space for ad */}
+        <View style={styles.adStyle} />
+        {/* Space to separate ad from ui */}
+        <View style={bottomStyle} />
       </SafeAreaView>
     );
   }

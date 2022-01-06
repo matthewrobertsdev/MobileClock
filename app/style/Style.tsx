@@ -20,12 +20,12 @@ export const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: "center",
     color: 'white',
-    margin: 5,
+    //margin: 5,
   },
   dateText: {
     fontSize: 22.5,
     textAlign: "center",
     color: 'white',
-    margin: 5,
+    //margin: 5,
   },
 })

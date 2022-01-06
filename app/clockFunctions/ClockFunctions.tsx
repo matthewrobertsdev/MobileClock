@@ -100,5 +100,5 @@ export function getNumericalDateStringOnly(date: Date) {
 
 export function getNumericalDateString(date: Date) {
   //return 'Wednesday, September 31'
-  return `${daysOfWeek[date.getDay()]}, ${[date.getMonth()+1]}/${date.getDate()}`
+  return `${daysOfWeek[date.getDay()]}, ${[date.getMonth()+1]}/${date.getDate()}/${date.getFullYear()}`
 }
