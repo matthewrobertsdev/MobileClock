@@ -1,5 +1,5 @@
 /**
- * Sample React Native App
+ * Spiffy Clock App
  * https://github.com/facebook/react-native
  *
  * @format

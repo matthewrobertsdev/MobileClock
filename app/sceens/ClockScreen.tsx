@@ -68,36 +68,12 @@ function ClockScreen() {
   useEffect(() => {
     console.log('width: '+window.width)
     console.log('height: '+window.height)
-    if (window.width>1100 && window.height>800){
-      setMultiplier(4)
-    } else if (window.width>900 && window.height>650){
-      setMultiplier(3)
-    } else if (window.width>700 && window.height>500) {
-      setMultiplier(2)
-    } else if (window.width>500 && window.height>400) {
-      setMultiplier(1.5)
-    }else if (window.width>300 && window.height>300){
-      setMultiplier(1)
-    } else {
-      setMultiplier(0.75)
-    }
+    updateSizes(window)
     const subscription = Dimensions.addEventListener(
       "change",
       ({ window }) => {
         setDimensions({ window });
-        if (window.width>1100 && window.height>800){
-          setMultiplier(4)
-        } else if (window.width>900 && window.height>650){
-          setMultiplier(3)
-        } else if (window.width>700 && window.height>500) {
-          setMultiplier(2)
-        } else if (window.width>500 && window.height>400) {
-          setMultiplier(1.5)
-        }else if (window.width>300 && window.height>300){
-          setMultiplier(1)
-        } else {
-          setMultiplier(0.75)
-        }
+        updateSizes(window)
       }
     );
     return () => subscription?.remove();
@@ -204,6 +180,21 @@ function ClockScreen() {
       } else {
         setDateString('')
       }
+    }
+  }
+  function updateSizes(window) {
+    if (window.width>1100 && window.height>800){
+      setMultiplier(4)
+    } else if (window.width>900 && window.height>650){
+      setMultiplier(3)
+    } else if (window.width>700 && window.height>500) {
+      setMultiplier(2)
+    } else if (window.width>500 && window.height>400) {
+      setMultiplier(1.5)
+    }else if (window.width>300 && window.height>300){
+      setMultiplier(1)
+    } else {
+      setMultiplier(0.75)
     }
   }
 };
