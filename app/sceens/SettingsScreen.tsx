@@ -112,8 +112,8 @@ function SettingsScreen({navigation}) {
       </View>
       <ButtonWithMargin text='Remove Ads'/>
       <ButtonWithMargin text='Restore Purchases'/>
-      <ButtonWithMargin text='Help...'/>
-      <ButtonWithMargin text='About Spiffy Clock'/>
+      <ButtonWithMargin text='Help...' onPress={()=>navigation.navigate('Help')}/>
+      <ButtonWithMargin text='About Spiffy Clock' onPress={()=>navigation.navigate('About')}/>
       </ScrollView>
     </SafeAreaView>
   );

@@ -30,8 +30,9 @@
        <SafeAreaView style={{flex: 1}}>
          <StatusBar />
          <View style={styles.container}>
-          <View style={{width: 200, backgroundColor: 'rgb(2, 76, 182)', margin: 20, borderRadius: 20}}>
-            <Text style={{color: 'white', textAlign: 'center', padding: 20, fontSize: 20}}>
+           {/* Color preview background and text */}
+          <View style={styles.colorPreview}>
+            <Text style={styles.colorPreviewText}>
               Color Preview
             </Text>
           </View>

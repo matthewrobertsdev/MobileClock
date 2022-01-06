@@ -5,6 +5,9 @@ import ClockScreen from '../sceens/ClockScreen'
 import SettingsScreen from '../sceens/SettingsScreen'
 import ColorsScreen from '../sceens/ColorsScreen'
 import AndroidLoadingScreen from '../sceens/AndroidLoadingScreen'
+import HelpScreen from '../sceens/HelpScreen'
+import AboutScreen from '../sceens/AboutScreen'
+
 
 const RootStack = createNativeStackNavigator();
 let modalScreenOptions
@@ -36,6 +39,8 @@ function RootStackScreen() {
       <RootStack.Group screenOptions={modalScreenOptions}>
         <RootStack.Screen name="Settings" component={SettingsScreen} />
         <RootStack.Screen name="Colors" component={ColorsScreen} />
+        <RootStack.Screen name="Help" component={HelpScreen} />
+        <RootStack.Screen name="About" component={AboutScreen} />
       </RootStack.Group>
     </RootStack.Navigator>
     </SettingsContext.Provider>

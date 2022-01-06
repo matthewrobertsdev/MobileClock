@@ -32,4 +32,16 @@ export const styles = StyleSheet.create({
     color: 'white',
     //margin: 5,
   },
+  colorPreview: {
+    width: 200, 
+    backgroundColor: 'rgb(2, 76, 182)', 
+    margin: 20, 
+    borderRadius: 20
+  },
+  colorPreviewText: {
+    color: 'white', 
+    textAlign: 'center', 
+    padding: 20, 
+    fontSize: 20
+  }
 })
