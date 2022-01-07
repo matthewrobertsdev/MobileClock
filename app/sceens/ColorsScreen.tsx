@@ -60,17 +60,17 @@ function ColorsScreen() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
-      <View style={styles.container}>
         {/* Color preview background and text */}
         <View style={{...styles.colorPreview, backgroundColor: 
           isDarkMode ?  darkColors[settings.colorChoice] : 
-          lightColors[settings.colorChoice]}}>
+          lightColors[settings.colorChoice],
+          marginLeft:'auto', marginRight:'auto'}}>
           <Text style={styles.colorPreviewText}>
             Color Preview
           </Text>
         </View>
         <ScrollView>
-          <View style={{ alignItems: 'center' }}>
+          <View style={{alignItems: 'center', flex: 1}}>
             <ButtonWithMargin text='Use Color for Background' />
             <ButtonWithMargin text='Use Color for Foreground' />
             <SwitchWthText text='Use Night Mode in Dark Mode' />
@@ -87,7 +87,6 @@ function ColorsScreen() {
             key='Custom Color'/>
           </View>
         </ScrollView>
-      </View>
     </SafeAreaView>
   )
 };
