@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
   //load settings
   const loadSettings = async () => {
     let state={showsSeconds: false, uses24HourTime: false, showsDate: true, 
-      showsDayOfWeek: true, usesNumericalDate: false}
+      showsDayOfWeek: true, usesNumericalDate: false, colorChoice: 'Blue'}
     try {
       const secondsPreference = JSON.parse(await AsyncStorage.getItem('showsSeconds'))
       if(secondsPreference !== null) {
@@ -24,6 +24,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
       const usesNumericalDatePreference = JSON.parse(await AsyncStorage.getItem('usesNumericalDate'))
       if(usesNumericalDatePreference !== null) {
         state.usesNumericalDate=usesNumericalDatePreference
+      }
+      const colorChoicePreference = JSON.parse(await AsyncStorage.getItem('colorChoice'))
+      if(colorChoicePreference !== null && typeof colorChoicePreference === 'string') {
+        state.colorChoice=colorChoicePreference
       }
     } catch(e) {
       // error reading value

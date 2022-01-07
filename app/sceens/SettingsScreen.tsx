@@ -59,41 +59,26 @@ function SettingsScreen({ navigation }) {
       // saving error
     }
   }
-  const [showsSeconds, setShowSeconds] = useState(settings.showsSeconds);
-  const toggleSeconds = () => setShowSeconds(previousState => {
-    saveShowSeconds(!previousState)
-    settings.showsSeconds = !previousState
-    setSettings(settings)
-    return !previousState
-  })
-  const [uses24HourTime, setUses24HourTime] = useState(settings.uses24HourTime);
-  const toggle24HourTime = () => setUses24HourTime(previousState => {
-    saveUse24HourTime(!previousState)
-    settings.uses24HourTime = !previousState
-    setSettings(settings)
-    return !previousState
-  })
-  const [showsDate, setShowsDate] = useState(settings.showsDate);
-  const toggleShowsDate = () => setShowsDate(previousState => {
-    saveShowsDate(!previousState)
-    settings.showsDate = !previousState
-    setSettings(settings)
-    return !previousState
-  })
-  const [showsDayOfWeek, setShowsDayOfWeek] = useState(settings.showsDayOfWeek);
-  const toggleShowsDayOfWeek = () => setShowsDayOfWeek(previousState => {
-    saveShowsDayOfWeek(!previousState)
-    settings.showsDayOfWeek = !previousState
-    setSettings(settings)
-    return !previousState
-  })
-  const [usesNumericalDate, setUsesNumericalDate] = useState(settings.usesNumericalDate);
-  const toggleUsesNumericalDate = () => setUsesNumericalDate(previousState => {
-    saveUsesNumericalDate(!previousState)
-    settings.usesNumericalDate = !previousState
-    setSettings(settings)
-    return !previousState
-  })
+  const toggleSeconds = () => {
+    saveShowSeconds(!settings.showsSeconds)
+    setSettings({...settings, showsSeconds: !settings.showsSeconds})
+  }
+  const toggle24HourTime = () => {
+    saveUse24HourTime(!settings.uses24HourTime)
+    setSettings({...settings, uses24HourTime: !settings.uses24HourTime})
+  }
+  const toggleShowsDate = () => {
+    saveShowsDate(!settings.showsDate)
+    setSettings({...settings, showsDate: !settings.showsDate})
+  }
+  const toggleShowsDayOfWeek = () => {
+    saveShowsDayOfWeek(!settings.showsDayOfWeek)
+    setSettings({...settings, showsDayOfWeek: !settings.showsDayOfWeek})
+  }
+  const toggleUsesNumericalDate = () => {
+    saveUsesNumericalDate(!settings.usesNumericalDate)
+    setSettings({...settings, usesNumericalDate: !settings.usesNumericalDate})
+  }
   useEffect(() => {
   }, []);
   //view
@@ -101,18 +86,17 @@ function SettingsScreen({ navigation }) {
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
         <View style={styles.container}>
-          <ButtonWithMargin text='Choose Color' onPress={() => navigation.navigate('Colors')} />
           <View style={{ flex: 1, alignItems: 'center' }}>
             <SwitchWithText toggleSwitch={toggleSeconds}
-              isEnabled={showsSeconds} text='Show Seconds' />
+              isEnabled={settings.showsSeconds} text='Show Seconds' />
             <SwitchWithText toggleSwitch={toggle24HourTime}
-              isEnabled={uses24HourTime} text='Use 24 Hour Time' />
+              isEnabled={settings.uses24HourTime} text='Use 24 Hour Time' />
             <SwitchWithText toggleSwitch={toggleShowsDate}
-              isEnabled={showsDate} text='Show Date' />
+              isEnabled={settings.showsDate} text='Show Date' />
             <SwitchWithText toggleSwitch={toggleShowsDayOfWeek}
-              isEnabled={showsDayOfWeek} text='Show Day of Week' />
+              isEnabled={settings.showsDayOfWeek} text='Show Day of Week' />
             <SwitchWithText toggleSwitch={toggleUsesNumericalDate}
-              isEnabled={usesNumericalDate} disabled={!showsDate} text='Use Numerical Date' />
+              isEnabled={settings.usesNumericalDate} disabled={!settings.showsDate} text='Use Numerical Date' />
           </View>
           <ButtonWithMargin text='Remove Ads' />
           <ButtonWithMargin text='Restore Purchases' />

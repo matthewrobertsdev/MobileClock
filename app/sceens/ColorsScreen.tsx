@@ -13,7 +13,8 @@ import {
   useColorScheme,
   View,
   Text,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native';
 
 
@@ -24,18 +25,27 @@ import { SettingsContext } from '../navigation/RootStackScreen';
 import { colorNames, darkColors, lightColors, lightDarkBackground } from '../style/Colors';
 import ButtonWithMargin from '../components/ButtonWithMargin';
 import SwitchWthText from '../components/SwitchWithText';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 function ColorsScreen() {
+  const saveColorChoice = async (state) => {
+    try {
+      const jsonValue = JSON.stringify(state)
+      await AsyncStorage.setItem('colorChoice', jsonValue)
+    } catch (e) {
+      // saving error
+    }
+  }
   console.log(lightColors['Red'])
   const [settings, setSettings] = useContext(SettingsContext);
-  const [color, setColor] = useState('blue');
 
   const isDarkMode = useColorScheme() === 'dark';
   const ColorCell = (props) => (
-    <View style={{
+    <TouchableOpacity style={{
       width: 300, height: 70,
       backgroundColor: isDarkMode ? lightDarkBackground : 'white',
       flexDirection: 'row', alignItems: 'center', margin: 10, borderRadius: 20
-    }}>
+    }} onPress={props.onPress}>
       <View style={{
         backgroundColor:
           props.color,
@@ -45,14 +55,16 @@ function ColorsScreen() {
       <Text style={{ fontSize: 20, margin: 10, color: isDarkMode ? 'white' : 'black' }}>
         {props.colorName}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
       <View style={styles.container}>
         {/* Color preview background and text */}
-        <View style={styles.colorPreview}>
+        <View style={{...styles.colorPreview, backgroundColor: 
+          isDarkMode ?  darkColors[settings.colorChoice] : 
+          lightColors[settings.colorChoice]}}>
           <Text style={styles.colorPreviewText}>
             Color Preview
           </Text>
@@ -64,11 +76,15 @@ function ColorsScreen() {
             <SwitchWthText text='Use Night Mode in Dark Mode' />
             {colorNames.map(colorName => <ColorCell colorName={colorName} 
             color={isDarkMode ? darkColors[colorName] : lightColors[colorName]}
-            key={colorName} />)}
+            key={colorName} onPress={()=>{
+              settings.colorChoice=colorName
+              console.log(colorName)
+                saveColorChoice(colorName)
+              setSettings({...settings, colorChoice: colorName})}}/>)}
             <ButtonWithMargin text='Choose Custom Color...' />
             <ColorCell colorName={'Custom Color'} 
             color='gray'
-            key='Custom Color' />
+            key='Custom Color'/>
           </View>
         </ScrollView>
       </View>

@@ -24,7 +24,7 @@ import {
 import { styles } from '../style/Style'
 
 //settings pressable
-import SettingsPressable from '../components/SettingsPressable'
+import ImagePressable from '../components/ImagePressable'
 //load settings from storage
 import loadSettings from '../state/loadSettings'
 //holds settings
@@ -37,10 +37,12 @@ import { twentyFourHourWithSeconds, twentyFourHourNoSeconds,
    getWrittenDateStingOnly,
    getNumericalDateString,
    getNumericalDateStringOnly} from '../clockFunctions/ClockFunctions'
+import { darkColors, lightColors } from '../style/Colors';
 
 function ClockScreen() {
   //the timer variable
   let startTimer
+  let color
   const [loaded, setLoaded] = useState(false)
   const [settings, setSettings] = useContext(SettingsContext);
   const isDarkMode = useColorScheme() === 'dark';
@@ -53,7 +55,7 @@ function ClockScreen() {
   const [dateString, setDateString] = useState('')
 
   const safeAreaStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: isDarkMode ? 'black' : Colors.lighter,
     flex: 1,
   };
 
@@ -62,7 +64,7 @@ function ClockScreen() {
     width: '100%',
     justifyContent: 'flex-end',
     marginBottom: 0,
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter, //isDarkMode ? 'black' : 'white',
+    backgroundColor: isDarkMode ? 'black' : Colors.lighter, //isDarkMode ? 'black' : 'white',
   }
 
   useEffect(() => {
@@ -108,7 +110,13 @@ function ClockScreen() {
         }
       };
     }
-  }, [loaded])
+  }, [loaded, settings])
+
+  //color
+  if (settings!==undefined) {
+    color= isDarkMode ?  darkColors[settings.colorChoice] : 
+    lightColors[settings.colorChoice]
+  }
 
   //if settings are undefined, display empty ui
   if (settings === undefined) {
@@ -124,29 +132,34 @@ function ClockScreen() {
     return (
       <SafeAreaView style={safeAreaStyle}>
         <StatusBar />
-        <View style={styles.settingsContainer}>
+        <View style={{...styles.settingsContainer, backgroundColor: color}}>
           {/* Button to take you to settings */}
-          <SettingsPressable screenName='Settings' />
+          <ImagePressable screenName='Colors' imageName='brush-outline'/>
+          <ImagePressable screenName='Settings' imageName='cog-outline'/>
         </View>
-          <View style={styles.centeredContainer}>
+          <View style={{...styles.centeredContainer, backgroundColor: color}}>
             {/* Time Text */}
-            <Text style={{ ...styles.timeText, fontSize: settings.showsSeconds ? 70*multiplier : 110*multiplier }} >
+            <Text style={{ ...styles.timeText, fontSize: 
+              settings.showsSeconds ? 70*multiplier : 110*multiplier,
+              color: isDarkMode ? 'black' : 'black'}} >
               {timeString}
             </Text>
             {/* Date Text */}
-            <Text style={{...styles.dateText, fontSize: 25*multiplier}} >
+            <Text style={{...styles.dateText, fontSize: 25*multiplier, 
+              color: isDarkMode ? 'black' : 'black'}} >
               {dateString}
             </Text>
           </View>
         {/* Space for ad */}
-        <View style={styles.adStyle} />
+        <View style={{...styles.adStyle, backgroundColor: color}} />
         {/* Space to separate ad from ui */}
-        <View style={bottomStyle} />
+        <View style={{...bottomStyle}} />
       </SafeAreaView>
     );
   }
   function updateClock() {
     const date = new Date()
+    //console.log(date.getMilliseconds())
     if (settings.showsSeconds) {
       if (settings.uses24HourTime) {
         setTimeString(twentyFourHourWithSeconds(date))

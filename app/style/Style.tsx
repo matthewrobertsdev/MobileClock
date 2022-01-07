@@ -18,7 +18,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   settingsContainer: {
-    backgroundColor: 'rgb(2, 76, 182)'
+    backgroundColor: 'rgb(2, 76, 182)',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   timeText: {
     fontSize: 40,
@@ -39,9 +41,9 @@ export const styles = StyleSheet.create({
     borderRadius: 20
   },
   colorPreviewText: {
-    color: 'white', 
+    color: 'black', 
     textAlign: 'center', 
-    padding: 20, 
+    padding: 10, 
     fontSize: 20
   }
 })
