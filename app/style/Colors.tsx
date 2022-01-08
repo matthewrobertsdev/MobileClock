@@ -27,3 +27,43 @@ export const colorNames=['Red', 'Orange', 'Yellow', 'Green', 'Blue',
 
 export const lightDarkBackground='rgb(28,28,30)'
 export const darkLightBackground='rgb(242,242,247)'
+
+export const getTextColor=(settings, isDarkMode) => {
+  if (settings.colorForForeground) {
+    if (settings.usesNightMode) {
+      return isDarkMode ? darkColors[settings.colorChoice] :
+        lightColors[settings.colorChoice]
+    } else if (!settings.usesNightMode) {
+      return lightColors[settings.colorChoice]
+    }
+  } else {
+    if (settings.usesNightMode) {
+      return 'black'
+    } else {
+      return isDarkMode ? 'white' :
+      'black'
+    }
+  }
+}
+
+export const getBackgroundColor=(settings, isDarkMode) => {
+  if (settings.colorForForeground) {
+    return 'rgb(30,30,30)'
+  } else {
+    return isDarkMode ? darkColors[settings.colorChoice] :
+            lightColors[settings.colorChoice]
+  }
+}
+
+
+export const getIconColor=(settings, isDarkMode) => {
+  if (isDarkMode) {
+    if (settings.usesNightMode) {
+      return '#999999'
+    } else {
+      return 'white'
+    }
+  } else {
+    return 'black'
+  }
+}

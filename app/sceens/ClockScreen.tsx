@@ -37,14 +37,14 @@ import { twentyFourHourWithSeconds, twentyFourHourNoSeconds,
    getWrittenDateStingOnly,
    getNumericalDateString,
    getNumericalDateStringOnly} from '../clockFunctions/ClockFunctions'
-import { darkColors, lightColors } from '../style/Colors';
+import { darkColors, getBackgroundColor, getIconColor, getTextColor, lightColors } from '../style/Colors';
 
 function ClockScreen() {
   //the timer variable
   let startTimer
-  let color='Blue'
-  let textColor='black'
-  let iconColor='black'
+  const [color, setColor]=useState('Blue')
+  const [textColor, setTextColor]=useState('black')
+  const [iconColor, setIconColor]=useState('black')
   const [loaded, setLoaded] = useState(false)
   const [settings, setSettings] = useContext(SettingsContext);
   const isDarkMode = useColorScheme() === 'dark';
@@ -94,6 +94,10 @@ function ClockScreen() {
       setLoaded(true)
     }
     if (loaded) {
+      //color
+      setTextColor(getTextColor(settings, isDarkMode))
+      setColor(getBackgroundColor(settings, isDarkMode))
+      setIconColor(getIconColor(settings, isDarkMode))
       //clear any old timer
       if (startTimer !== undefined) {
         clearTimeout(startTimer)
@@ -113,40 +117,6 @@ function ClockScreen() {
       };
     }
   }, [loaded, settings])
-
-  //color
-  if (settings!==undefined) {
-    if (settings.colorForForeground) {
-      if (settings.usesNightMode) {
-        textColor = isDarkMode ? darkColors[settings.colorChoice] :
-          lightColors[settings.colorChoice]
-      } else if (!settings.usesNightMode) {
-        textColor = lightColors[settings.colorChoice]
-      }
-    } else {
-      if (settings.usesNightMode) {
-        textColor = 'black'
-      } else {
-        textColor = isDarkMode ? 'white' :
-        'black'
-      }
-    }
-    if (settings.colorForForeground) {
-      color='rgb(30,30,30)'
-    } else {
-      color=isDarkMode ? darkColors[settings.colorChoice] :
-              lightColors[settings.colorChoice]
-    }
-    if (isDarkMode) {
-      if (settings.usesNightMode) {
-        iconColor='#999999'
-      } else {
-        iconColor='white'
-      }
-    } else {
-      iconColor='black'
-    }
-  }
 
   //if settings are undefined, display empty ui
   if (settings === undefined) {
@@ -232,7 +202,7 @@ function ClockScreen() {
       setMultiplier(3)
     } else if (window.width>700 && window.height>500) {
       setMultiplier(2)
-    } else if (window.width>500 && window.height>300) {
+    } else if (window.width>500 && window.height>350) {
       setMultiplier(1.5)
     }else if (window.width>300 && window.height>200){
       setMultiplier(1)

@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -22,14 +22,15 @@ import { styles } from '../style/Style'
 
 //holds settings
 import { SettingsContext } from '../navigation/RootStackScreen';
-import { colorNames, darkColors, lightColors, lightDarkBackground } from '../style/Colors';
+import { colorNames, darkColors, getBackgroundColor, getTextColor, lightColors, lightDarkBackground } from '../style/Colors';
 import ButtonWithMargin from '../components/ButtonWithMargin';
 import SwitchWthText from '../components/SwitchWithText';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 function ColorsScreen() {
-  let color
-  let textColor
+  const [color, setColor]=useState('Blue')
+  const [textColor, setTextColor]=useState('black')
   const saveColorChoice = async (state) => {
     try {
       const jsonValue = JSON.stringify(state)
@@ -71,27 +72,13 @@ function ColorsScreen() {
   }
 
   const isDarkMode = useColorScheme() === 'dark';
-  if (settings.colorForForeground) {
-    if (settings.usesNightMode) {
-      textColor = isDarkMode ? darkColors[settings.colorChoice] :
-        lightColors[settings.colorChoice]
-    } else if (!settings.usesNightMode) {
-      textColor = lightColors[settings.colorChoice]
-    }
-  } else {
-    if (settings.usesNightMode) {
-      textColor = 'black'
-    } else {
-      textColor = isDarkMode ? 'white' :
-      'black'
-    }
-  }
-  if (settings.colorForForeground) {
-    color='rgb(30,30,30)'
-  } else {
-    color=isDarkMode ? darkColors[settings.colorChoice] :
-            lightColors[settings.colorChoice]
-  }
+
+  useEffect(()=>{
+    //color
+    setTextColor(getTextColor(settings, isDarkMode))
+    setColor(getBackgroundColor(settings, isDarkMode))
+  }, [settings])
+
   const ColorCell = (props) => (
     <TouchableOpacity style={{
       width: 300, height: 70,
