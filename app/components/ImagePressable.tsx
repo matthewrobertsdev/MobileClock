@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-function ImagePressable({screenName, imageName}) {
+function ImagePressable({screenName, imageName, color}) {
   const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation();
   return (
@@ -22,7 +22,7 @@ function ImagePressable({screenName, imageName}) {
         alignItems: 'flex-end', marginTop: 10, marginRight: 10, marginLeft: 10,
         alignSelf: 'flex-end', padding: 6, borderRadius: 30
       }]}>
-        <Icon name={imageName} size={30} color={isDarkMode ? '#999999' : 'black'} />
+        <Icon name={imageName} size={30} color={color} />
     </Pressable>
   );
 }

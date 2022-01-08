@@ -42,7 +42,9 @@ import { darkColors, lightColors } from '../style/Colors';
 function ClockScreen() {
   //the timer variable
   let startTimer
-  let color
+  let color='Blue'
+  let textColor='black'
+  let iconColor='black'
   const [loaded, setLoaded] = useState(false)
   const [settings, setSettings] = useContext(SettingsContext);
   const isDarkMode = useColorScheme() === 'dark';
@@ -116,6 +118,13 @@ function ClockScreen() {
   if (settings!==undefined) {
     color= isDarkMode ?  darkColors[settings.colorChoice] : 
     lightColors[settings.colorChoice]
+    if (isDarkMode && !settings.usesNightMode) {
+      textColor='white'
+      iconColor='white'
+    } else {
+      textColor='black'
+      iconColor='#999999'
+    }
   }
 
   //if settings are undefined, display empty ui
@@ -134,19 +143,19 @@ function ClockScreen() {
         <StatusBar />
         <View style={{...styles.settingsContainer, backgroundColor: color}}>
           {/* Button to take you to settings */}
-          <ImagePressable screenName='Colors' imageName='brush-outline'/>
-          <ImagePressable screenName='Settings' imageName='cog-outline'/>
+          <ImagePressable screenName='Colors' imageName='brush-outline' color={iconColor}/>
+          <ImagePressable screenName='Settings' imageName='cog-outline' color={iconColor}/>
         </View>
           <View style={{...styles.centeredContainer, backgroundColor: color}}>
             {/* Time Text */}
             <Text style={{ ...styles.timeText, fontSize: 
               settings.showsSeconds ? 70*multiplier : 110*multiplier,
-              color: isDarkMode ? 'black' : 'black'}} >
+              color: textColor}} >
               {timeString}
             </Text>
             {/* Date Text */}
             <Text style={{...styles.dateText, fontSize: 25*multiplier, 
-              color: isDarkMode ? 'black' : 'black'}} >
+              color: textColor}} >
               {dateString}
             </Text>
           </View>
@@ -202,9 +211,9 @@ function ClockScreen() {
       setMultiplier(3)
     } else if (window.width>700 && window.height>500) {
       setMultiplier(2)
-    } else if (window.width>500 && window.height>400) {
+    } else if (window.width>500 && window.height>300) {
       setMultiplier(1.5)
-    }else if (window.width>300 && window.height>300){
+    }else if (window.width>300 && window.height>200){
       setMultiplier(1)
     } else {
       setMultiplier(0.75)

@@ -36,10 +36,27 @@ function ColorsScreen() {
       // saving error
     }
   }
-  console.log(lightColors['Red'])
   const [settings, setSettings] = useContext(SettingsContext);
+  const saveUsesNightMode = async (state) => {
+    try {
+      const jsonValue = JSON.stringify(state)
+      await AsyncStorage.setItem('useNightMode', jsonValue)
+    } catch (e) {
+      // saving error
+    }
+  }
+  const toggleUsesNightMode = () => {
+    saveUsesNightMode(!settings.usesNightMode)
+    setSettings({...settings, usesNightMode: !settings.usesNightMode})
+  }
 
   const isDarkMode = useColorScheme() === 'dark';
+  let textColor
+  if (isDarkMode && !settings.usesNightMode) {
+    textColor='white'
+  } else {
+    textColor='black'
+  }
   const ColorCell = (props) => (
     <TouchableOpacity style={{
       width: 300, height: 70,
@@ -65,7 +82,7 @@ function ColorsScreen() {
           isDarkMode ?  darkColors[settings.colorChoice] : 
           lightColors[settings.colorChoice],
           marginLeft:'auto', marginRight:'auto'}}>
-          <Text style={styles.colorPreviewText}>
+          <Text style={{...styles.colorPreviewText, color: textColor}}>
             Color Preview
           </Text>
         </View>
@@ -73,13 +90,12 @@ function ColorsScreen() {
           <View style={{alignItems: 'center', flex: 1}}>
             <ButtonWithMargin text='Use Color for Background' />
             <ButtonWithMargin text='Use Color for Foreground' />
-            <SwitchWthText text='Use Night Mode in Dark Mode' />
+            <SwitchWthText text='Use Night Mode in Dark Mode' 
+            toggleSwitch={toggleUsesNightMode} isEnabled={settings.usesNightMode}/>
             {colorNames.map(colorName => <ColorCell colorName={colorName} 
             color={isDarkMode ? darkColors[colorName] : lightColors[colorName]}
             key={colorName} onPress={()=>{
-              settings.colorChoice=colorName
-              console.log(colorName)
-                saveColorChoice(colorName)
+              saveColorChoice(colorName)
               setSettings({...settings, colorChoice: colorName})}}/>)}
             <ButtonWithMargin text='Choose Custom Color...' />
             <ColorCell colorName={'Custom Color'} 
