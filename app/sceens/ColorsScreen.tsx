@@ -118,7 +118,7 @@ function ColorsScreen() {
         marginLeft: 'auto', marginRight: 'auto'
       }}>
         <Text style={{ ...styles.colorPreviewText, color: textColor }}>
-          Color Preview
+          Color Choice
         </Text>
       </View>
       <ScrollView>

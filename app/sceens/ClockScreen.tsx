@@ -137,10 +137,14 @@ function ClockScreen() {
       color=isDarkMode ? darkColors[settings.colorChoice] :
               lightColors[settings.colorChoice]
     }
-    if (isDarkMode && !settings.usesNightMode) {
-      iconColor='white'
+    if (isDarkMode) {
+      if (settings.usesNightMode) {
+        iconColor='#999999'
+      } else {
+        iconColor='white'
+      }
     } else {
-      iconColor='#999999'
+      iconColor='black'
     }
   }
 
