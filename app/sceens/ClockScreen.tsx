@@ -116,13 +116,30 @@ function ClockScreen() {
 
   //color
   if (settings!==undefined) {
-    color= isDarkMode ?  darkColors[settings.colorChoice] : 
-    lightColors[settings.colorChoice]
+    if (settings.colorForForeground) {
+      if (settings.usesNightMode) {
+        textColor = isDarkMode ? darkColors[settings.colorChoice] :
+          lightColors[settings.colorChoice]
+      } else if (!settings.usesNightMode) {
+        textColor = lightColors[settings.colorChoice]
+      }
+    } else {
+      if (settings.usesNightMode) {
+        textColor = 'black'
+      } else {
+        textColor = isDarkMode ? 'white' :
+        'black'
+      }
+    }
+    if (settings.colorForForeground) {
+      color='rgb(30,30,30)'
+    } else {
+      color=isDarkMode ? darkColors[settings.colorChoice] :
+              lightColors[settings.colorChoice]
+    }
     if (isDarkMode && !settings.usesNightMode) {
-      textColor='white'
       iconColor='white'
     } else {
-      textColor='black'
       iconColor='#999999'
     }
   }

@@ -28,6 +28,8 @@ import SwitchWthText from '../components/SwitchWithText';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function ColorsScreen() {
+  let color
+  let textColor
   const saveColorChoice = async (state) => {
     try {
       const jsonValue = JSON.stringify(state)
@@ -37,6 +39,14 @@ function ColorsScreen() {
     }
   }
   const [settings, setSettings] = useContext(SettingsContext);
+  const saveColorForForeground = async (state) => {
+    try {
+      const jsonValue = JSON.stringify(state)
+      await AsyncStorage.setItem('colorForForeground', jsonValue)
+    } catch (e) {
+      // saving error
+    }
+  }
   const saveUsesNightMode = async (state) => {
     try {
       const jsonValue = JSON.stringify(state)
@@ -47,15 +57,40 @@ function ColorsScreen() {
   }
   const toggleUsesNightMode = () => {
     saveUsesNightMode(!settings.usesNightMode)
-    setSettings({...settings, usesNightMode: !settings.usesNightMode})
+    setSettings({ ...settings, usesNightMode: !settings.usesNightMode })
+  }
+
+  const useColorForForegound = () => {
+    saveColorForForeground(true)
+    setSettings({ ...settings, colorForForeground: true })
+  }
+
+  const useColorForBackground = () => {
+    saveColorForForeground(false)
+    setSettings({ ...settings, colorForForeground: false })
   }
 
   const isDarkMode = useColorScheme() === 'dark';
-  let textColor
-  if (isDarkMode && !settings.usesNightMode) {
-    textColor='white'
+  if (settings.colorForForeground) {
+    if (settings.usesNightMode) {
+      textColor = isDarkMode ? darkColors[settings.colorChoice] :
+        lightColors[settings.colorChoice]
+    } else if (!settings.usesNightMode) {
+      textColor = lightColors[settings.colorChoice]
+    }
   } else {
-    textColor='black'
+    if (settings.usesNightMode) {
+      textColor = 'black'
+    } else {
+      textColor = isDarkMode ? 'white' :
+      'black'
+    }
+  }
+  if (settings.colorForForeground) {
+    color='rgb(30,30,30)'
+  } else {
+    color=isDarkMode ? darkColors[settings.colorChoice] :
+            lightColors[settings.colorChoice]
   }
   const ColorCell = (props) => (
     <TouchableOpacity style={{
@@ -77,34 +112,46 @@ function ColorsScreen() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
-        {/* Color preview background and text */}
-        <View style={{...styles.colorPreview, backgroundColor: 
-          isDarkMode ?  darkColors[settings.colorChoice] : 
-          lightColors[settings.colorChoice],
-          marginLeft:'auto', marginRight:'auto'}}>
-          <Text style={{...styles.colorPreviewText, color: textColor}}>
-            Color Preview
-          </Text>
-        </View>
-        <ScrollView>
-          <View style={{alignItems: 'center', flex: 1}}>
-            <ButtonWithMargin text='Use Color for Background' />
-            <ButtonWithMargin text='Use Color for Foreground' />
-            <SwitchWthText text='Use Night Mode in Dark Mode' 
-            toggleSwitch={toggleUsesNightMode} isEnabled={settings.usesNightMode}/>
-            {colorNames.map(colorName => <ColorCell colorName={colorName} 
-            color={isDarkMode ? darkColors[colorName] : lightColors[colorName]}
-            key={colorName} onPress={()=>{
+      {/* Color preview background and text */}
+      <View style={{
+        ...styles.colorPreview, backgroundColor: color,
+        marginLeft: 'auto', marginRight: 'auto'
+      }}>
+        <Text style={{ ...styles.colorPreviewText, color: textColor }}>
+          Color Preview
+        </Text>
+      </View>
+      <ScrollView>
+        <View style={{ alignItems: 'center', flex: 1 }}>
+          <ButtonWithMargin text='Use Color for Background' onPress={useColorForBackground} />
+          <ButtonWithMargin text='Use Color for Foreground' onPress={useColorForForegound} />
+          <SwitchWthText text='Use Night Mode in Dark Mode'
+            toggleSwitch={toggleUsesNightMode} isEnabled={settings.usesNightMode} />
+          {colorNames.map(colorName => <ColorCell colorName={colorName}
+            color={getColor(colorName)}
+            key={colorName} onPress={() => {
               saveColorChoice(colorName)
-              setSettings({...settings, colorChoice: colorName})}}/>)}
-            <ButtonWithMargin text='Choose Custom Color...' />
-            <ColorCell colorName={'Custom Color'} 
+              setSettings({ ...settings, colorChoice: colorName })
+            }} />)}
+          <ButtonWithMargin text='Choose Custom Color...' />
+          <ColorCell colorName={'Custom Color'}
             color='gray'
-            key='Custom Color'/>
-          </View>
-        </ScrollView>
+            key='Custom Color' />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   )
+  function getColor(colorName) {
+    if (settings.colorForForeground) {
+      if (settings.usesNightMode) {
+        return darkColors[colorName]
+      } else {
+        return lightColors[colorName]
+      }
+    } else {
+      return isDarkMode ? darkColors[colorName] : lightColors[colorName]
+    }
+  }
 };
 
 export default ColorsScreen;

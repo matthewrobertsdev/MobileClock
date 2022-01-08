@@ -3,7 +3,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
   //load settings
   const loadSettings = async () => {
     let state={showsSeconds: false, uses24HourTime: false, showsDate: true, 
-      showsDayOfWeek: true, usesNumericalDate: false, colorChoice: 'Blue', usesNightMode: false}
+      showsDayOfWeek: true, usesNumericalDate: false, colorChoice: 'Blue', 
+      usesNightMode: false, colorForForeground: false}
     try {
       const secondsPreference = JSON.parse(await AsyncStorage.getItem('showsSeconds'))
       if(secondsPreference !== null && typeof secondsPreference === 'boolean') {
@@ -32,6 +33,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
       const usesNightModePreference = JSON.parse(await AsyncStorage.getItem('usesNightMode'))
       if(usesNightModePreference !== null && typeof usesNightModePreference === 'boolean') {
         state.usesNightMode=usesNightModePreference
+      }
+      const colorForForeground = JSON.parse(await AsyncStorage.getItem('colorForForegound'))
+      if(colorForForeground !== null && typeof colorForForeground === 'boolean') {
+        state.colorForForeground=colorForForeground
       }
     } catch(e) {
       // error reading value
