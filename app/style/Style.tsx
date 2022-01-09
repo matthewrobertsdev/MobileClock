@@ -38,7 +38,11 @@ export const styles = StyleSheet.create({
     width: 200, 
     backgroundColor: 'rgb(2, 76, 182)', 
     margin: 20, 
-    borderRadius: 20
+    borderRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   colorPreviewText: {
     color: 'black', 
