@@ -37,8 +37,9 @@ import { twentyFourHourWithSeconds, twentyFourHourNoSeconds,
    getDayOfWeekStringOnly,
    getWrittenDateStingOnly,
    getNumericalDateString,
-   getNumericalDateStringOnly} from '../clockFunctions/ClockFunctions'
-import { darkColors, getBackgroundColor, getIconColor, getTextColor, lightColors } from '../style/Colors';
+   getNumericalDateStringOnly,
+   getEmptyDateString} from '../clockFunctions/ClockFunctions'
+import { getBackgroundColor, getIconColor, getTextColor } from '../style/Colors';
 
 function ClockScreen() {
   //the timer variable
@@ -122,13 +123,15 @@ function ClockScreen() {
       if (startTimer !== undefined) {
         clearTimeout(startTimer)
       }
-      if (appStateVisible==='active') {
-        console.log('should start timer')
+      if (appStateVisible!=='inactive') {
         //get initial date and time strings
-        updateClock()
+        const timeFunction=getUpdateTimeFunction()
+        const dateFunction=getUpdateDateFunction()
+        updateClock(timeFunction, dateFunction)
         //start the new timer
         startTimer = setInterval(() => {
-          updateClock()
+          console.log("timer")
+          updateClock(timeFunction, dateFunction)
         }, 100);
       } else {
         if (settings.showsSeconds) {
@@ -186,43 +189,49 @@ function ClockScreen() {
       </SafeAreaView>
     );
   }
-  function updateClock() {
-    const date = new Date()
+  function getUpdateTimeFunction() {
     //console.log(date.getMilliseconds())
     if (settings.showsSeconds) {
       if (settings.uses24HourTime) {
-        setTimeString(twentyFourHourWithSeconds(date))
+        return twentyFourHourWithSeconds
       } else {
-        setTimeString(twelveHourWithSeconds(date))
+        return twelveHourWithSeconds
       }
     } else {
       if (settings.uses24HourTime) {
-        setTimeString(twentyFourHourNoSeconds(date))
+        return twentyFourHourNoSeconds
       } else {
-        setTimeString(twelveHourNoSeconds(date))
+        return twelveHourNoSeconds
       }
     }
+  }
+  function getUpdateDateFunction() {
     if (settings.usesNumericalDate) {
       if (settings.showsDayOfWeek && settings.showsDate) {
-        setDateString(getNumericalDateString(date))
+        return getNumericalDateString
       } else if (settings.showsDayOfWeek) {
-        setDateString(getDayOfWeekStringOnly(date))
+        return getDayOfWeekStringOnly
       } else if (settings.showsDate) {
-        setDateString(getNumericalDateStringOnly(date))
+        return getNumericalDateStringOnly
       } else {
-        setDateString('')
+        return getEmptyDateString
       }
     } else {
       if (settings.showsDayOfWeek && settings.showsDate) {
-        setDateString(getWrittenDateString(date))
+        return getWrittenDateString
       } else if (settings.showsDayOfWeek) {
-        setDateString(getDayOfWeekStringOnly(date))
+        return getDayOfWeekStringOnly
       } else if (settings.showsDate) {
-        setDateString(getWrittenDateStingOnly(date))
+        return getWrittenDateStingOnly
       } else {
-        setDateString('')
+        return getEmptyDateString
       }
     }
+  }
+  function updateClock(timeFunction, dateFunction) {
+    const date = new Date()
+    setTimeString(timeFunction(date))
+    setDateString(dateFunction(date))
   }
   function updateSizes(window) {
     if (window.width>1100 && window.height>800){
@@ -230,9 +239,9 @@ function ClockScreen() {
     } else if (window.width>900 && window.height>650){
       setMultiplier(3)
     } else if (window.width>700 && window.height>500) {
-      setMultiplier(2)
+      setMultiplier(1.75)
     } else if (window.width>500 && window.height>350) {
-      setMultiplier(1.5)
+      setMultiplier(1.25)
     }else if (window.width>300 && window.height>200){
       setMultiplier(1)
     } else {

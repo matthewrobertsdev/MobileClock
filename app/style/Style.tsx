@@ -5,20 +5,20 @@ export const styles = StyleSheet.create({
   adStyle: {
     height: 50,
     width: '100%',
-    backgroundColor: 'rgb(2, 76, 182)'
+    backgroundColor: 'Blue'
   },
   centeredContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgb(2, 76, 182)'
+    backgroundColor: 'Blue'
   },
   container: {
     flex: 1,
     alignItems: 'center',
   },
   settingsContainer: {
-    backgroundColor: 'rgb(2, 76, 182)',
+    backgroundColor: 'Blue',
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
   },
   colorPreview: {
     width: 200, 
-    backgroundColor: 'rgb(2, 76, 182)', 
+    backgroundColor: 'Blue', 
     margin: 20, 
     borderRadius: 20,
     borderBottomLeftRadius: 20,
