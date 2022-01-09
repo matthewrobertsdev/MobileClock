@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -15,6 +15,7 @@ import {
   View,
   Platform,
   Dimensions,
+  AppState
 } from 'react-native';
 
 import {
@@ -42,15 +43,21 @@ import { darkColors, getBackgroundColor, getIconColor, getTextColor, lightColors
 function ClockScreen() {
   //the timer variable
   let startTimer
+  //settings
+  const [loaded, setLoaded] = useState(false)
+  const [settings, setSettings] = useContext(SettingsContext);
+  //colors
   const [color, setColor]=useState('Blue')
   const [textColor, setTextColor]=useState('black')
   const [iconColor, setIconColor]=useState('black')
-  const [loaded, setLoaded] = useState(false)
-  const [settings, setSettings] = useContext(SettingsContext);
   const isDarkMode = useColorScheme() === 'dark';
+  //sizing
   const window = Dimensions.get("window");
   const [dimensions, setDimensions] = useState({ window });
   const [multiplier, setMultiplier] = useState(1);
+  //app state
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
 
   //date and time string state 
   const [timeString, setTimeString] = useState('')
@@ -68,6 +75,19 @@ function ClockScreen() {
     marginBottom: 0,
     backgroundColor: isDarkMode ? 'black' : Colors.lighter, //isDarkMode ? 'black' : 'white',
   }
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", nextAppState => {
+
+      appState.current = nextAppState;
+      setAppStateVisible(appState.current);
+      console.log("AppState", appState.current);
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   useEffect(() => {
     console.log('width: '+window.width)
@@ -102,21 +122,30 @@ function ClockScreen() {
       if (startTimer !== undefined) {
         clearTimeout(startTimer)
       }
-      console.log('should start timer')
-      //get initial date and time strings
-      updateClock()
-      //start the new timer
-      startTimer = setInterval(() => {
+      if (appStateVisible==='active') {
+        console.log('should start timer')
+        //get initial date and time strings
         updateClock()
-      }, 100);
-      return () => {
-        //clear the timer
-        if (startTimer !== undefined) {
-          clearTimeout(startTimer)
+        //start the new timer
+        startTimer = setInterval(() => {
+          updateClock()
+        }, 100);
+      } else {
+        if (settings.showsSeconds) {
+          setTimeString("--:--:--")
+        } else {
+          setTimeString("--:--")
         }
-      };
+        setDateString("Clock Paused")
+      }
     }
-  }, [loaded, settings])
+    return () => {
+      //clear the timer
+      if (startTimer !== undefined) {
+        clearTimeout(startTimer)
+      }
+    };
+  }, [loaded, settings, appStateVisible])
 
   //if settings are undefined, display empty ui
   if (settings === undefined) {
