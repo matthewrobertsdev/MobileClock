@@ -1,7 +1,17 @@
-import {
-  StyleSheet,
-} from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
+import { Colors, } from 'react-native/Libraries/NewAppScreen';
 export const styles = StyleSheet.create({
+  safeAreaStyle: {
+    backgroundColor: Colors.lighter,
+    flex: 1,
+  },
+  bottomStyle: {
+    height: Platform.OS === 'ios' ? 35 : 50,
+    width: '100%',
+    justifyContent: 'flex-end',
+    marginBottom: 0,
+    backgroundColor: Colors.lighter
+  },
   adStyle: {
     height: 50,
     width: '100%',

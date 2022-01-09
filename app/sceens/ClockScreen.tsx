@@ -6,42 +6,28 @@
  * @flow strict-local
  */
 
+/** imports */
+//react and react native
 import React, { useEffect, useState, useContext, useRef } from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  Text,
-  useColorScheme,
-  View,
-  Platform,
-  Dimensions,
-  AppState
-} from 'react-native';
-
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
-
+import { SafeAreaView, StatusBar, Text, useColorScheme, View,
+  Dimensions, AppState } from 'react-native';
+//colors and style
 import { styles } from '../style/Style'
-
-//settings pressable
+import { Colors, } from 'react-native/Libraries/NewAppScreen';
+//image pressable
 import ImagePressable from '../components/ImagePressable'
-//load settings from storage
+//settings: load and context
 import loadSettings from '../state/loadSettings'
-//holds settings
 import { SettingsContext } from '../navigation/RootStackScreen';
 //clock functions
 import { twentyFourHourWithSeconds, twentyFourHourNoSeconds, 
-  twelveHourWithSeconds, twelveHourNoSeconds,
-   getWrittenDateString, 
-   getDayOfWeekStringOnly,
-   getWrittenDateStingOnly,
-   getNumericalDateString,
-   getNumericalDateStringOnly,
-   getEmptyDateString} from '../clockFunctions/ClockFunctions'
+  twelveHourWithSeconds, twelveHourNoSeconds, getWrittenDateString, 
+  getDayOfWeekStringOnly, getWrittenDateStingOnly, getNumericalDateString,
+  getNumericalDateStringOnly, getEmptyDateString} from '../clockFunctions/ClockFunctions'
 import { getBackgroundColor, getIconColor, getTextColor } from '../style/Colors';
 
 function ClockScreen() {
+  /* basic state */
   //the timer variable
   let startTimer
   //settings
@@ -64,19 +50,7 @@ function ClockScreen() {
   const [timeString, setTimeString] = useState('')
   const [dateString, setDateString] = useState('')
 
-  const safeAreaStyle = {
-    backgroundColor: isDarkMode ? 'black' : Colors.lighter,
-    flex: 1,
-  };
-
-  const bottomStyle = {
-    height: Platform.OS === 'ios' ? 35 : 50,
-    width: '100%',
-    justifyContent: 'flex-end',
-    marginBottom: 0,
-    backgroundColor: isDarkMode ? 'black' : Colors.lighter, //isDarkMode ? 'black' : 'white',
-  }
-
+  /** for iOS paused clock ui */
   useEffect(() => {
     const subscription = AppState.addEventListener("change", nextAppState => {
 
@@ -90,6 +64,7 @@ function ClockScreen() {
     };
   }, []);
 
+  /** for sizing */
   useEffect(() => {
     console.log('width: '+window.width)
     console.log('height: '+window.height)
@@ -104,6 +79,7 @@ function ClockScreen() {
     return () => subscription?.remove();
   }, [window]);
 
+  /** load settings and update clock */
   useEffect(() => {
     //load settings if necessary
     if (settings === undefined) {
@@ -150,10 +126,12 @@ function ClockScreen() {
     };
   }, [loaded, settings, appStateVisible])
 
+  /** view */
   //if settings are undefined, display empty ui
   if (settings === undefined) {
     return (
-      <SafeAreaView style={safeAreaStyle}>
+      <SafeAreaView style={{...styles.safeAreaStyle, 
+      backgroundColor: isDarkMode ? 'black' : Colors.lighter}}>
         <StatusBar />
         <View style={styles.settingsContainer}>
         </View>
@@ -162,7 +140,8 @@ function ClockScreen() {
   } else {
     //if settings are loaded, display ui
     return (
-      <SafeAreaView style={safeAreaStyle}>
+      <SafeAreaView style={{...styles.safeAreaStyle, 
+        backgroundColor: isDarkMode ? 'black' : Colors.lighter}}>
         <StatusBar />
         <View style={{...styles.settingsContainer, backgroundColor: color}}>
           {/* Button to take you to settings */}
@@ -185,12 +164,14 @@ function ClockScreen() {
         {/* Space for ad */}
         <View style={{...styles.adStyle, backgroundColor: color}} />
         {/* Space to separate ad from ui */}
-        <View style={{...bottomStyle}} />
+        <View style={{...styles.bottomStyle, backgroundColor: 
+          isDarkMode ? 'black' : Colors.lighter}} />
       </SafeAreaView>
     );
   }
+  /** update clock functions */
+  //get time function
   function getUpdateTimeFunction() {
-    //console.log(date.getMilliseconds())
     if (settings.showsSeconds) {
       if (settings.uses24HourTime) {
         return twentyFourHourWithSeconds
@@ -205,6 +186,7 @@ function ClockScreen() {
       }
     }
   }
+  //get date function
   function getUpdateDateFunction() {
     if (settings.usesNumericalDate) {
       if (settings.showsDayOfWeek && settings.showsDate) {
@@ -233,6 +215,7 @@ function ClockScreen() {
     setTimeString(timeFunction(date))
     setDateString(dateFunction(date))
   }
+  /** update size function */
   function updateSizes(window) {
     if (window.width>1100 && window.height>800){
       setMultiplier(4)
