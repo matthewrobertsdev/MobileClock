@@ -24,7 +24,7 @@ import { twentyFourHourWithSeconds, twentyFourHourNoSeconds,
   twelveHourWithSeconds, twelveHourNoSeconds, getWrittenDateString, 
   getDayOfWeekStringOnly, getWrittenDateStingOnly, getNumericalDateString,
   getNumericalDateStringOnly, getEmptyDateString} from '../clockFunctions/ClockFunctions'
-import { getBackgroundColor, getIconColor, getTextColor } from '../style/Colors';
+import { getBackgroundColor, getSafeAreaColor, getTextColor } from '../style/Colors';
 
 function ClockScreen() {
   /* basic state */
@@ -36,7 +36,7 @@ function ClockScreen() {
   //colors
   const [color, setColor]=useState('Blue')
   const [textColor, setTextColor]=useState('black')
-  const [iconColor, setIconColor]=useState('black')
+  const [safeAreaColor, setSafeAreaColor]=useState('Blue')
   const isDarkMode = useColorScheme() === 'dark';
   //sizing
   const window = Dimensions.get("window");
@@ -94,7 +94,8 @@ function ClockScreen() {
       //color
       setTextColor(getTextColor(settings, isDarkMode))
       setColor(getBackgroundColor(settings, isDarkMode))
-      setIconColor(getIconColor(settings, isDarkMode))
+      setSafeAreaColor(getSafeAreaColor(settings, isDarkMode))
+      //setIconColor(getIconColor(settings, isDarkMode))
       //clear any old timer
       if (startTimer !== undefined) {
         clearTimeout(startTimer)
@@ -131,8 +132,8 @@ function ClockScreen() {
   if (settings === undefined) {
     return (
       <SafeAreaView style={{...styles.safeAreaStyle, 
-      backgroundColor: isDarkMode ? 'black' : Colors.lighter}}>
-        <StatusBar />
+      backgroundColor: safeAreaColor}}>
+        <StatusBar/>
         <View style={styles.settingsContainer}>
         </View>
       </SafeAreaView>
@@ -141,12 +142,12 @@ function ClockScreen() {
     //if settings are loaded, display ui
     return (
       <SafeAreaView style={{...styles.safeAreaStyle, 
-        backgroundColor: color}}>
-        <StatusBar />
+        backgroundColor: safeAreaColor}}>
+        <StatusBar/>
         <View style={{...styles.settingsContainer, backgroundColor: color}}>
           {/* Button to take you to settings */}
-          <ImagePressable screenName='Colors' imageName='brush-outline' color={iconColor}/>
-          <ImagePressable screenName='Settings' imageName='cog-outline' color={iconColor}/>
+          <ImagePressable screenName='Colors' imageName='brush-outline' color={textColor} backgroundColor={color}/>
+          <ImagePressable screenName='Settings' imageName='cog-outline' color={textColor} backgroundColor={color}/>
         </View>
           <View style={{...styles.centeredContainer, backgroundColor: color}}>
             {/* Time Text */}

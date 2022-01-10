@@ -55,6 +55,16 @@ export const getBackgroundColor=(settings, isDarkMode) => {
   }
 }
 
+export const getSafeAreaColor=(settings, isDarkMode) => {
+  if (settings.colorForForeground) {
+    return isDarkMode ? darkColors[settings.colorChoice] :
+        lightColors[settings.colorChoice]
+  }  else {
+    return isDarkMode ? darkColors[settings.colorChoice] :
+            lightColors[settings.colorChoice]
+  }
+}
+
 
 export const getIconColor=(settings, isDarkMode) => {
   if (isDarkMode) {

@@ -30,6 +30,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 function ColorsScreen({navigation}) {
   const [color, setColor]=useState('Blue')
   const [textColor, setTextColor]=useState('black')
+
   const saveColorChoice = async (state) => {
     try {
       const jsonValue = JSON.stringify(state)
@@ -130,7 +131,7 @@ function ColorsScreen({navigation}) {
   )
   function getColor(colorName) {
     if (settings.colorForForeground) {
-      if (settings.usesNightMode) {
+      if (settings.usesNightMode && isDarkMode) {
         return darkColors[colorName]
       } else {
         return lightColors[colorName]
