@@ -26,9 +26,8 @@ import { colorNames, darkColors, getBackgroundColor, getTextColor, lightColors, 
 import ButtonWithMargin from '../components/ButtonWithMargin';
 import SwitchWthText from '../components/SwitchWithText';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect } from '@react-navigation/native';
 
-function ColorsScreen() {
+function ColorsScreen({navigation}) {
   const [color, setColor]=useState('Blue')
   const [textColor, setTextColor]=useState('black')
   const saveColorChoice = async (state) => {
@@ -120,7 +119,8 @@ function ColorsScreen() {
               saveColorChoice(colorName)
               setSettings({ ...settings, colorChoice: colorName })
             }} />)}
-          <ButtonWithMargin text='Choose Custom Color...' />
+          <ButtonWithMargin text='Choose Custom Color...' 
+          onPress={()=>navigation.navigate("Custom Color")}/>
           <ColorCell colorName={'Custom Color'}
             color='gray'
             key='Custom Color' />

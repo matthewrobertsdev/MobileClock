@@ -124,7 +124,7 @@ function ClockScreen() {
         clearTimeout(startTimer)
       }
     };
-  }, [loaded, settings, appStateVisible])
+  }, [loaded, settings, appStateVisible, isDarkMode])
 
   /** view */
   //if settings are undefined, display empty ui
@@ -145,8 +145,8 @@ function ClockScreen() {
         <StatusBar />
         <View style={{...styles.settingsContainer, backgroundColor: color}}>
           {/* Button to take you to settings */}
-          <ImagePressable screenName='Colors' imageName='brush-outline' color={iconColor}/>
-          <ImagePressable screenName='Settings' imageName='cog-outline' color={iconColor}/>
+          <ImagePressable screenName='ColorsScreenNavigator' imageName='brush-outline' color={iconColor}/>
+          <ImagePressable screenName='SettingsScreenNavigator' imageName='cog-outline' color={iconColor}/>
         </View>
           <View style={{...styles.centeredContainer, backgroundColor: color}}>
             {/* Time Text */}

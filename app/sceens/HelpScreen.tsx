@@ -1,12 +1,12 @@
 /**
- * Spiffy Clock Color Screen
+ * Spiffy Clock Help Screen
  * https://github.com/facebook/react-native
  *
  * @format
  * @flow strict-local
  */
 
- import React, { useContext, useState } from 'react';
+ import React from 'react';
  import {
    SafeAreaView,
    StatusBar,

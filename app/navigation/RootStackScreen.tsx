@@ -7,6 +7,7 @@ import ColorsScreen from '../sceens/ColorsScreen'
 import AndroidLoadingScreen from '../sceens/AndroidLoadingScreen'
 import HelpScreen from '../sceens/HelpScreen'
 import AboutScreen from '../sceens/AboutScreen'
+import CustomColorScreen from '../sceens/CustomColorScreen'
 
 
 const RootStack = createNativeStackNavigator();
@@ -14,7 +15,7 @@ let modalScreenOptions
 if (Platform.OS === 'ios') {
   modalScreenOptions =
     ({ navigation }) => ({
-      presentation: 'modal',
+      presentation: 'fullScreenModal',
       headerRight: () => (
         <Button
           onPress={() => navigation.goBack()}
@@ -29,6 +30,27 @@ if (Platform.OS === 'ios') {
 
 export const SettingsContext = React.createContext();
 
+function SettingsScreenNavigator() {
+    return (
+      <RootStack.Navigator>
+        <RootStack.Screen name="Settings" component={SettingsScreen} 
+        options={modalScreenOptions}/>
+        <RootStack.Screen name="Help" component={HelpScreen} />
+        <RootStack.Screen name="About" component={AboutScreen} />
+      </RootStack.Navigator>
+    )
+}
+
+function ColorsScreenNavigator() {
+  return (
+    <RootStack.Navigator>
+      <RootStack.Screen name="Colors" component={ColorsScreen} 
+      options={modalScreenOptions}/>
+      <RootStack.Screen name="Custom Color" component={CustomColorScreen} />
+    </RootStack.Navigator>
+  )
+}
+
 
 function RootStackScreen() {
   const [settings, setSettings]=useState(undefined)
@@ -37,10 +59,10 @@ function RootStackScreen() {
     <RootStack.Navigator>
         {returnMainRootStackGroup()}
       <RootStack.Group screenOptions={modalScreenOptions}>
-        <RootStack.Screen name="Settings" component={SettingsScreen} />
-        <RootStack.Screen name="Colors" component={ColorsScreen} />
-        <RootStack.Screen name="Help" component={HelpScreen} />
-        <RootStack.Screen name="About" component={AboutScreen} />
+        <RootStack.Screen name="SettingsScreenNavigator" component={SettingsScreenNavigator} 
+        options={{ headerShown: false }}/>
+        <RootStack.Screen name="ColorsScreenNavigator" component={ColorsScreenNavigator} 
+        options={{ headerShown: false }}/>
       </RootStack.Group>
     </RootStack.Navigator>
     </SettingsContext.Provider>
