@@ -15,7 +15,7 @@ let modalScreenOptions
 if (Platform.OS === 'ios') {
   modalScreenOptions =
     ({ navigation }) => ({
-      presentation: 'fullScreenModal',
+      presentation: 'modal',
       headerRight: () => (
         <Button
           onPress={() => navigation.goBack()}
@@ -28,18 +28,24 @@ if (Platform.OS === 'ios') {
     { presentation: 'modal', }
 }
 
-export const SettingsContext = React.createContext();
-
-function SettingsScreenNavigator() {
-    return (
-      <RootStack.Navigator>
-        <RootStack.Screen name="Settings" component={SettingsScreen} 
-        options={modalScreenOptions}/>
-        <RootStack.Screen name="Help" component={HelpScreen} />
-        <RootStack.Screen name="About" component={AboutScreen} />
-      </RootStack.Navigator>
-    )
+let fullscreenModalScreenOptions
+if (Platform.OS === 'ios') {
+  fullscreenModalScreenOptions =
+    ({ navigation }) => ({
+      presentation: 'fullScreenModal',
+      headerRight: () => (
+        <Button
+          onPress={() => navigation.goBack()}
+          title="Save"
+        />
+      ),
+    })
+} else {
+  fullscreenModalScreenOptions =
+    { presentation: 'fullScreenModal', }
 }
+
+export const SettingsContext = React.createContext();
 
 function ColorsScreenNavigator() {
   return (
@@ -59,10 +65,15 @@ function RootStackScreen() {
     <RootStack.Navigator>
         {returnMainRootStackGroup()}
       <RootStack.Group screenOptions={modalScreenOptions}>
-        <RootStack.Screen name="SettingsScreenNavigator" component={SettingsScreenNavigator} 
-        options={{ headerShown: false }}/>
-        <RootStack.Screen name="ColorsScreenNavigator" component={ColorsScreenNavigator} 
-        options={{ headerShown: false }}/>
+        <RootStack.Screen name="Settings" component={SettingsScreen} 
+        options={modalScreenOptions}/>
+        <RootStack.Screen name="Help" component={HelpScreen} />
+        <RootStack.Screen name="About" component={AboutScreen} />
+         <RootStack.Screen name="Colors" component={ColorsScreen} 
+      options={modalScreenOptions}/>
+      </RootStack.Group>
+      <RootStack.Group screenOptions={fullscreenModalScreenOptions}>
+      <RootStack.Screen name="Custom Color" component={CustomColorScreen} />
       </RootStack.Group>
     </RootStack.Navigator>
     </SettingsContext.Provider>

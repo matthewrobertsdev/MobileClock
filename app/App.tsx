@@ -7,9 +7,7 @@
  */
 
 import React from 'react';
-import {
-  useColorScheme,
-} from 'react-native';
+import { useColorScheme } from 'react-native';
 
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 

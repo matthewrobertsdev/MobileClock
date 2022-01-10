@@ -141,12 +141,12 @@ function ClockScreen() {
     //if settings are loaded, display ui
     return (
       <SafeAreaView style={{...styles.safeAreaStyle, 
-        backgroundColor: isDarkMode ? 'black' : Colors.lighter}}>
+        backgroundColor: color}}>
         <StatusBar />
         <View style={{...styles.settingsContainer, backgroundColor: color}}>
           {/* Button to take you to settings */}
-          <ImagePressable screenName='ColorsScreenNavigator' imageName='brush-outline' color={iconColor}/>
-          <ImagePressable screenName='SettingsScreenNavigator' imageName='cog-outline' color={iconColor}/>
+          <ImagePressable screenName='Colors' imageName='brush-outline' color={iconColor}/>
+          <ImagePressable screenName='Settings' imageName='cog-outline' color={iconColor}/>
         </View>
           <View style={{...styles.centeredContainer, backgroundColor: color}}>
             {/* Time Text */}
@@ -164,8 +164,7 @@ function ClockScreen() {
         {/* Space for ad */}
         <View style={{...styles.adStyle, backgroundColor: color}} />
         {/* Space to separate ad from ui */}
-        <View style={{...styles.bottomStyle, backgroundColor: 
-          isDarkMode ? 'black' : Colors.lighter}} />
+        <View style={{...styles.bottomStyle, backgroundColor: color}} />
       </SafeAreaView>
     );
   }

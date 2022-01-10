@@ -76,7 +76,7 @@ function ColorsScreen({navigation}) {
     //color
     setTextColor(getTextColor(settings, isDarkMode))
     setColor(getBackgroundColor(settings, isDarkMode))
-  }, [settings])
+  }, [settings, isDarkMode])
 
   const ColorCell = (props) => (
     <TouchableOpacity style={{

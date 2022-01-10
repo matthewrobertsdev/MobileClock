@@ -34,7 +34,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
       if(usesNightModePreference !== null && typeof usesNightModePreference === 'boolean') {
         state.usesNightMode=usesNightModePreference
       }
-      const colorForForeground = JSON.parse(await AsyncStorage.getItem('colorForForegound'))
+      const colorForForeground = JSON.parse(await AsyncStorage.getItem('colorForForeground'))
       if(colorForForeground !== null && typeof colorForForeground === 'boolean') {
         state.colorForForeground=colorForForeground
       }
