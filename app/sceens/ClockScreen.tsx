@@ -13,7 +13,6 @@ import { SafeAreaView, StatusBar, Text, useColorScheme, View,
   Dimensions, AppState } from 'react-native';
 //colors and style
 import { styles } from '../style/Style'
-import { Colors, } from 'react-native/Libraries/NewAppScreen';
 //image pressable
 import ImagePressable from '../components/ImagePressable'
 //settings: load and context
@@ -143,7 +142,7 @@ function ClockScreen() {
     return (
       <SafeAreaView style={{...styles.safeAreaStyle, 
         backgroundColor: safeAreaColor}}>
-        <StatusBar/>
+        <StatusBar hidden={!settings.showsStatusBar}/>
         <View style={{...styles.settingsContainer, backgroundColor: color}}>
           {/* Button to take you to settings */}
           <ImagePressable screenName='Colors' imageName='brush-outline' color={textColor} backgroundColor={color}/>

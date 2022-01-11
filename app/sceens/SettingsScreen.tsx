@@ -59,6 +59,14 @@ function SettingsScreen({ navigation }) {
       // saving error
     }
   }
+  const saveShowsStatusBar = async (state) => {
+    try {
+      const jsonValue = JSON.stringify(state)
+      await AsyncStorage.setItem('showsStatusBar', jsonValue)
+    } catch (e) {
+      // saving error
+    }
+  }
   const toggleSeconds = () => {
     saveShowSeconds(!settings.showsSeconds)
     setSettings({...settings, showsSeconds: !settings.showsSeconds})
@@ -79,6 +87,10 @@ function SettingsScreen({ navigation }) {
     saveUsesNumericalDate(!settings.usesNumericalDate)
     setSettings({...settings, usesNumericalDate: !settings.usesNumericalDate})
   }
+  const toggleShowsStatusBar = () => {
+    saveShowsStatusBar(!settings.showsStatusBar)
+    setSettings({...settings, showsStatusBar: !settings.showsStatusBar})
+  }
   useEffect(() => {
   }, []);
   //view
@@ -96,7 +108,10 @@ function SettingsScreen({ navigation }) {
             <SwitchWithText toggleSwitch={toggleShowsDayOfWeek}
               isEnabled={settings.showsDayOfWeek} text='Show Day of Week' />
             <SwitchWithText toggleSwitch={toggleUsesNumericalDate}
-              isEnabled={settings.usesNumericalDate} disabled={!settings.showsDate} text='Use Numerical Date' />
+              isEnabled={settings.usesNumericalDate} 
+              disabled={!settings.showsDate} text='Use Numerical Date' />
+            <SwitchWithText toggleSwitch={toggleShowsStatusBar}
+              isEnabled={settings.showsStatusBar} text='Shows Status Bar' />
           </View>
           <ButtonWithMargin text='Remove Ads' />
           <ButtonWithMargin text='Restore Purchases' />

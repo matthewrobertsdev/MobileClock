@@ -56,9 +56,8 @@ export const getBackgroundColor=(settings, isDarkMode) => {
 }
 
 export const getSafeAreaColor=(settings, isDarkMode) => {
-  if (settings.colorForForeground) {
-    return isDarkMode ? darkColors[settings.colorChoice] :
-        lightColors[settings.colorChoice]
+  if (!settings.showsStatusBar && settings.colorForForeground) {
+    return 'rgb(30,30,30)'
   }  else {
     return isDarkMode ? darkColors[settings.colorChoice] :
             lightColors[settings.colorChoice]
