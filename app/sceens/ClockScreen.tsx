@@ -23,7 +23,7 @@ import { twentyFourHourWithSeconds, twentyFourHourNoSeconds,
   twelveHourWithSeconds, twelveHourNoSeconds, getWrittenDateString, 
   getDayOfWeekStringOnly, getWrittenDateStingOnly, getNumericalDateString,
   getNumericalDateStringOnly, getEmptyDateString} from '../clockFunctions/ClockFunctions'
-import { getBackgroundColor, getBarStyle, getSafeAreaColor, getTextColor } from '../style/Colors';
+import { getBackgroundColor, getIconColor, getSafeAreaColor, getTextColor } from '../style/Colors';
 
 function ClockScreen() {
   /* basic state */
@@ -36,7 +36,7 @@ function ClockScreen() {
   const [color, setColor]=useState('Blue')
   const [textColor, setTextColor]=useState('black')
   const [safeAreaColor, setSafeAreaColor]=useState('Blue')
-  const [barStyle, setBarStyle]=useState('light-content')
+  const [iconColor, setIconColor]=useState('black')
   const isDarkMode = useColorScheme() === 'dark';
   //sizing
   const window = Dimensions.get("window");
@@ -45,7 +45,6 @@ function ClockScreen() {
   //app state
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
-
   //date and time string state 
   const [timeString, setTimeString] = useState('')
   const [dateString, setDateString] = useState('')
@@ -95,8 +94,7 @@ function ClockScreen() {
       setTextColor(getTextColor(settings, isDarkMode))
       setColor(getBackgroundColor(settings, isDarkMode))
       setSafeAreaColor(getSafeAreaColor(settings, isDarkMode))
-      setBarStyle(getBarStyle(settings, isDarkMode))
-      //setIconColor(getIconColor(settings, isDarkMode))
+      setIconColor(getIconColor(settings, isDarkMode))
       //clear any old timer
       if (startTimer !== undefined) {
         clearTimeout(startTimer)
@@ -147,8 +145,8 @@ function ClockScreen() {
         <StatusBar hidden={!settings.showsStatusBar}/>
         <View style={{...styles.settingsContainer, backgroundColor: color}}>
           {/* Button to take you to settings */}
-          <ImagePressable screenName='Colors' imageName='brush-outline' color={textColor} backgroundColor={color}/>
-          <ImagePressable screenName='Settings' imageName='cog-outline' color={textColor} backgroundColor={color}/>
+          <ImagePressable screenName='Colors' imageName='brush-outline' color={iconColor} backgroundColor={color}/>
+          <ImagePressable screenName='Settings' imageName='cog-outline' color={iconColor} backgroundColor={color}/>
         </View>
           <View style={{...styles.centeredContainer, backgroundColor: color}}>
             {/* Time Text */}
@@ -233,5 +231,4 @@ function ClockScreen() {
     }
   }
 };
-
 export default ClockScreen;
