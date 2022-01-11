@@ -23,7 +23,7 @@ import { twentyFourHourWithSeconds, twentyFourHourNoSeconds,
   twelveHourWithSeconds, twelveHourNoSeconds, getWrittenDateString, 
   getDayOfWeekStringOnly, getWrittenDateStingOnly, getNumericalDateString,
   getNumericalDateStringOnly, getEmptyDateString} from '../clockFunctions/ClockFunctions'
-import { getBackgroundColor, getSafeAreaColor, getTextColor } from '../style/Colors';
+import { getBackgroundColor, getBarStyle, getSafeAreaColor, getTextColor } from '../style/Colors';
 
 function ClockScreen() {
   /* basic state */
@@ -36,6 +36,7 @@ function ClockScreen() {
   const [color, setColor]=useState('Blue')
   const [textColor, setTextColor]=useState('black')
   const [safeAreaColor, setSafeAreaColor]=useState('Blue')
+  const [barStyle, setBarStyle]=useState('light-content')
   const isDarkMode = useColorScheme() === 'dark';
   //sizing
   const window = Dimensions.get("window");
@@ -94,6 +95,7 @@ function ClockScreen() {
       setTextColor(getTextColor(settings, isDarkMode))
       setColor(getBackgroundColor(settings, isDarkMode))
       setSafeAreaColor(getSafeAreaColor(settings, isDarkMode))
+      setBarStyle(getBarStyle(settings, isDarkMode))
       //setIconColor(getIconColor(settings, isDarkMode))
       //clear any old timer
       if (startTimer !== undefined) {
@@ -106,7 +108,7 @@ function ClockScreen() {
         updateClock(timeFunction, dateFunction)
         //start the new timer
         startTimer = setInterval(() => {
-          console.log("timer")
+          //console.log("timer")
           updateClock(timeFunction, dateFunction)
         }, 100);
       } else {
@@ -142,7 +144,7 @@ function ClockScreen() {
     return (
       <SafeAreaView style={{...styles.safeAreaStyle, 
         backgroundColor: safeAreaColor}}>
-        <StatusBar hidden={!settings.showsStatusBar}/>
+        <StatusBar hidden={!settings.showsStatusBar} barStyle={barStyle}/>
         <View style={{...styles.settingsContainer, backgroundColor: color}}>
           {/* Button to take you to settings */}
           <ImagePressable screenName='Colors' imageName='brush-outline' color={textColor} backgroundColor={color}/>

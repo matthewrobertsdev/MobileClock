@@ -76,3 +76,11 @@ export const getIconColor=(settings, isDarkMode) => {
     return 'black'
   }
 }
+
+export const getBarStyle=(settings, isDarkMode) =>{
+  if (isDarkMode && !settings.usesNightMode) {
+    return 'light-content'
+  } else {
+    return 'dark-content'
+  }
+}
