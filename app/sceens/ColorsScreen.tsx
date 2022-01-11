@@ -51,7 +51,7 @@ function ColorsScreen({navigation}) {
   const saveUsesNightMode = async (state) => {
     try {
       const jsonValue = JSON.stringify(state)
-      await AsyncStorage.setItem('useNightMode', jsonValue)
+      await AsyncStorage.setItem('usesNightMode', jsonValue)
     } catch (e) {
       // saving error
     }

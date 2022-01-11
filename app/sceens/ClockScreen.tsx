@@ -144,7 +144,7 @@ function ClockScreen() {
     return (
       <SafeAreaView style={{...styles.safeAreaStyle, 
         backgroundColor: safeAreaColor}}>
-        <StatusBar hidden={!settings.showsStatusBar} barStyle={barStyle}/>
+        <StatusBar hidden={!settings.showsStatusBar}/>
         <View style={{...styles.settingsContainer, backgroundColor: color}}>
           {/* Button to take you to settings */}
           <ImagePressable screenName='Colors' imageName='brush-outline' color={textColor} backgroundColor={color}/>
