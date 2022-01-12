@@ -33,6 +33,12 @@ if (Platform.OS === 'ios') {
   fullscreenModalScreenOptions =
     ({ navigation }) => ({
       presentation: 'fullScreenModal',
+      headerLeft: () => (
+        <Button
+          onPress={() => navigation.goBack()}
+          title="Cancel"
+        />
+      ),
       headerRight: () => (
         <Button
           onPress={() => navigation.goBack()}

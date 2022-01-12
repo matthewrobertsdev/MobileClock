@@ -1,3 +1,5 @@
+import {getHexString} from '../utilities/numberConversions'
+
 export const lightColors={
   Red: 'rgb(255,59,48)',
   Orange: 'rgb(255,149,2)',
@@ -83,4 +85,12 @@ export const getBarStyle=(settings, isDarkMode) =>{
   } else {
     return 'dark-content'
   }
+}
+
+export const getHexColorString=(red, green, blue) => {
+  return `#${getHexString(red)}${getHexString(green)}${getHexString(blue)}`
+}
+
+export const getRgbString=(red, green, blue) => {
+  return `rgb(${red},${green},${blue})`
 }

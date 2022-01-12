@@ -6,14 +6,21 @@
  * @flow strict-local
  */
 
- import React, {useState, useEffect} from 'react';
- import { SafeAreaView, StatusBar } from 'react-native';
+import React, {useState, useEffect, useContext} from 'react';
+import { SafeAreaView, StatusBar } from 'react-native';
 
- import ColorPicker from 'react-native-wheel-color-picker'
+import ColorPicker from 'react-native-wheel-color-picker'
+
+import { getHexColorString } from '../style/Colors';
+import { SettingsContext } from '../navigation/RootStackScreen';
+
  
- function CustomColorScreen() {
+ function CustomColorScreen({navigation}) {
 
-  const [color, setColor]=useState('#FFFFFF')
+  const [settings, setSettings] = useContext(SettingsContext);
+  
+
+  const [color, setColor]=useState(getHexColorString(settings.customRed, settings.customGreen, settings.customBlue))
   const [loaded, setLoaded]=useState(false)
 
   useEffect(()=>{
@@ -23,9 +30,6 @@
     return (
        <SafeAreaView style={{flex: 1}}>
           <StatusBar/>
-          <ColorPicker style={{margin: 20}} swatches={false} thumbSize={30}
-					sliderSize={30} onColorChange={onColorChange} color={color} discrete={true}/>
-          {/*<SlidersColorPicker swatches={[]}/>*/}
        </SafeAreaView>
      )
 
