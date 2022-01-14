@@ -48,21 +48,18 @@ if (Platform.OS === 'ios') {
     })
 } else {
   fullscreenModalScreenOptions =
-    { presentation: 'fullScreenModal', }
+  ({ navigation }) => ({
+    presentation: 'fullScreenModal',
+    headerRight: () => (
+      <Button
+        onPress={() => navigation.goBack()}
+        title="Save"
+      />
+    ),
+  })
 }
 
 export const SettingsContext = React.createContext();
-
-function ColorsScreenNavigator() {
-  return (
-    <RootStack.Navigator>
-      <RootStack.Screen name="Colors" component={ColorsScreen} 
-      options={modalScreenOptions}/>
-      <RootStack.Screen name="Custom Color" component={CustomColorScreen} />
-    </RootStack.Navigator>
-  )
-}
-
 
 function RootStackScreen() {
   const [settings, setSettings]=useState(undefined)

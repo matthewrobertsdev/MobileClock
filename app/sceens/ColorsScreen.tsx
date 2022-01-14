@@ -7,16 +7,8 @@
  */
 
 import React, { useContext, useState, useEffect } from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  useColorScheme,
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity
-} from 'react-native';
-
+import { SafeAreaView, StatusBar, useColorScheme, View,
+  Text, ScrollView, TouchableOpacity } from 'react-native';
 
 import { styles } from '../style/Style'
 

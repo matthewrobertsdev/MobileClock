@@ -35,7 +35,7 @@ export const getTextColor=(settings, isDarkMode) => {
     if (settings.usesNightMode) {
       return isDarkMode ? darkColors[settings.colorChoice] :
         lightColors[settings.colorChoice]
-    } else if (!settings.usesNightMode) {
+    } else {
       return lightColors[settings.colorChoice]
     }
   } else {
