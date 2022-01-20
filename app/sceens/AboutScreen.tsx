@@ -35,7 +35,7 @@ function AboutScreen() {
             Spiffy Clock
           </Text>
           <Text style={{ color: textColor, fontSize: 20, margin: 5 }}>
-            Version 1.0 (1)
+            Version 1.0 (2)
           </Text>
           <Text style={{ color: textColor, fontSize: 20, margin: 5, textAlign: 'center' }}>
             {'Copyright © 2022 Matt Roberts.  \nAll rights reserved.'}

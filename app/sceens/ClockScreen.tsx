@@ -23,7 +23,7 @@ import { twentyFourHourWithSeconds, twentyFourHourNoSeconds,
   twelveHourWithSeconds, twelveHourNoSeconds, getWrittenDateString, 
   getDayOfWeekStringOnly, getWrittenDateStingOnly, getNumericalDateString,
   getNumericalDateStringOnly, getEmptyDateString} from '../clockFunctions/ClockFunctions'
-import { getBackgroundColor, getIconColor, getSafeAreaColor, getTextColor } from '../style/Colors';
+import { getBackgroundColor, getIconColor, getSafeAreaColor, getTextColor, getBarStyle } from '../style/Colors';
 
 function ClockScreen() {
   /* basic state */
@@ -37,6 +37,7 @@ function ClockScreen() {
   const [textColor, setTextColor]=useState('black')
   const [safeAreaColor, setSafeAreaColor]=useState('Blue')
   const [iconColor, setIconColor]=useState('black')
+  const [barStyle, setBarStyle]=useState('dark-content')
   const isDarkMode = useColorScheme() === 'dark';
   //sizing
   const window = Dimensions.get("window");
@@ -95,6 +96,7 @@ function ClockScreen() {
       setColor(getBackgroundColor(settings, isDarkMode))
       setSafeAreaColor(getSafeAreaColor(settings, isDarkMode))
       setIconColor(getIconColor(settings, isDarkMode))
+      setBarStyle(getBarStyle(settings, isDarkMode))
       //clear any old timer
       if (startTimer !== undefined) {
         clearTimeout(startTimer)
@@ -142,7 +144,7 @@ function ClockScreen() {
     return (
       <SafeAreaView style={{...styles.safeAreaStyle, 
         backgroundColor: safeAreaColor}}>
-        <StatusBar hidden={!settings.showsStatusBar}/>
+        <StatusBar hidden={!settings.showsStatusBar} barStyle={barStyle}/>
         <View style={{...styles.settingsContainer, backgroundColor: color}}>
           {/* Button to take you to settings */}
           <ImagePressable screenName='Colors' imageName='brush-outline' color={iconColor} backgroundColor={color}/>
@@ -218,9 +220,11 @@ function ClockScreen() {
   function updateSizes(window) {
     if (window.width>1100 && window.height>800){
       setMultiplier(4)
-    } else if (window.width>900 && window.height>650){
-      setMultiplier(3)
-    } else if (window.width>700 && window.height>500) {
+    } else if (window.width>900 && window.height>700){
+      setMultiplier(3.25)
+    } else if (window.width>800 && window.height>550){
+      setMultiplier(2.5)
+    } else if (window.width>600 && window.height>400) {
       setMultiplier(1.75)
     } else if (window.width>500 && window.height>350) {
       setMultiplier(1.25)

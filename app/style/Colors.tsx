@@ -58,7 +58,7 @@ export const getBackgroundColor=(settings, isDarkMode) => {
 }
 
 export const getSafeAreaColor=(settings, isDarkMode) => {
-  if (!settings.showsStatusBar && settings.colorForForeground) {
+  if (settings.colorForForeground) {
     return 'rgb(30,30,30)'
   }  else {
     return isDarkMode ? darkColors[settings.colorChoice] :
@@ -80,7 +80,7 @@ export const getIconColor=(settings, isDarkMode) => {
 }
 
 export const getBarStyle=(settings, isDarkMode) =>{
-  if (isDarkMode && !settings.usesNightMode) {
+  if (isDarkMode || settings.colorForForeground) {
     return 'light-content'
   } else {
     return 'dark-content'
