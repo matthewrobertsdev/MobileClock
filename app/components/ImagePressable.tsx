@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-function ImagePressable({screenName, imageName, color, backgroundColor}) {
+function ImagePressable({screenName, imageName, color, backgroundColor, accessibilityLabel}) {
   const navigation = useNavigation();
   return (
     <Pressable
@@ -20,7 +20,7 @@ function ImagePressable({screenName, imageName, color, backgroundColor}) {
         backgroundColor: backgroundColor,
         alignItems: 'flex-end', marginTop: 10, marginRight: 10, marginLeft: 10,
         alignSelf: 'flex-end', padding: 6, borderRadius: 30
-      }]}>
+      }]} accessibilityLabel={accessibilityLabel}>
         <Icon name={imageName} size={30} color={color} />
     </Pressable>
   );

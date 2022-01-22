@@ -147,8 +147,12 @@ function ClockScreen() {
         <StatusBar hidden={!settings.showsStatusBar} barStyle={barStyle}/>
         <View style={{...styles.settingsContainer, backgroundColor: color}}>
           {/* Button to take you to settings */}
-          <ImagePressable screenName='Colors' imageName='brush-outline' color={iconColor} backgroundColor={color}/>
-          <ImagePressable screenName='Settings' imageName='cog-outline' color={iconColor} backgroundColor={color}/>
+          <ImagePressable screenName='Colors' imageName='brush-outline' 
+          color={iconColor} backgroundColor={color}
+          accessibilityLabel={"Show colors"}/>
+          <ImagePressable screenName='Settings' imageName='cog-outline' 
+          color={iconColor} backgroundColor={color}
+          accessibilityLabel={"Show settings"}/>
         </View>
           <View style={{...styles.centeredContainer, backgroundColor: color}}>
             {/* Time Text */}

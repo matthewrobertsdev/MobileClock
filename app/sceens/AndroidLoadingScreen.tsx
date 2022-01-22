@@ -27,7 +27,8 @@ function AndroidLoadingScreen({navigation}) {
       <View style={{height: 100, backgroundColor: 'rgb(52,199,89)'}}/>
       <View style={{width: '100%', height: '100%', backgroundColor: 'rgb(52,199,89)', 
       alignItems: 'center'}}>
-        <Image style={{width: 200, height: 200}} source={require('../resources/icon.png')}/>
+        <Image style={{width: 200, height: 200}} source={require('../resources/icon.png')}
+        accessibilityLabel="Spiffy Clock icon"/>
       </View>
     </SafeAreaView>
   );

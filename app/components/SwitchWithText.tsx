@@ -13,7 +13,8 @@ function SwitchWthText(props) {
   return (
     <View style={{flexDirection: 'row', alignItems: 'center', width: 250, justifyContent: 'space-between', margin: 10}}>
       <Text style={{color: textColor}}>{props.text}</Text>
-      <Switch onValueChange={props.toggleSwitch} value={props.isEnabled} disabled={props.disabled}/>
+      <Switch onValueChange={props.toggleSwitch} value={props.isEnabled} 
+      disabled={props.disabled} accessibilityLabel={props.text}/>
     </View>
   );
 }

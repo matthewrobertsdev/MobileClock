@@ -109,8 +109,6 @@ function SettingsScreen({ navigation }) {
             <SwitchWithText toggleSwitch={toggleShowsStatusBar}
               isEnabled={settings.showsStatusBar} text='Shows Status Bar' />
           </View>
-          <ButtonWithMargin text='Remove Ads' />
-          <ButtonWithMargin text='Restore Purchases' />
           <ButtonWithMargin text='Help...' onPress={() => navigation.navigate('Help')} />
           <ButtonWithMargin text='About Spiffy Clock' onPress={() => navigation.navigate('About')} />
         </View>

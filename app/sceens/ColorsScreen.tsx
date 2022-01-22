@@ -98,7 +98,7 @@ function ColorsScreen({navigation}) {
       <View style={{
         ...styles.colorPreview, backgroundColor: color,
         marginLeft: 'auto', marginRight: 'auto'
-      }}>
+      }} accessibilityLabel={"Color preview"}>
         <Text style={{ ...styles.colorPreviewText, color: textColor }}>
           Color Choice
         </Text>
