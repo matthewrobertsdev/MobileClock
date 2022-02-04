@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   bottomStyle: {
-    height: Platform.OS === 'ios' ? 35 : 50,
+    height: 30,
     width: '100%',
     justifyContent: 'flex-end',
     marginBottom: 0,
@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
     backgroundColor: 'Blue'
   },
   centeredContainer: {
+    marginTop: -52,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -28,9 +29,13 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   settingsContainer: {
+    zIndex: 2,
+    display: 'flex',
+    width: '100%',
     backgroundColor: 'Blue',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignSelf: 'flex-start',
   },
   timeText: {
     fontSize: 40,

@@ -76,7 +76,7 @@ function ColorsScreen({navigation}) {
 
   const ColorCell = (props) => (
     <TouchableOpacity style={{
-      width: 300, height: 70,
+      width: 300,
       backgroundColor: isDarkMode ? lightDarkBackground : 'white',
       flexDirection: 'row', alignItems: 'center', margin: 10, borderRadius: 20
     }} onPress={props.onPress}>

@@ -158,17 +158,15 @@ function ClockScreen() {
             {/* Time Text */}
             <Text style={{ ...styles.timeText, fontSize: 
               settings.showsSeconds ? 70*multiplier : 110*multiplier,
-              color: textColor}} >
-              {timeString}
+              color: textColor}} allowFontScaling={false}>
+              {timeString/*20:00:00 */}
             </Text>
             {/* Date Text */}
             <Text style={{...styles.dateText, fontSize: 25*multiplier, 
-              color: textColor}} >
-              {dateString}
+              color: textColor}} allowFontScaling={false}>
+              {dateString/*"Wednesday, September 30"*/}
             </Text>
           </View>
-        {/* Space for ad */}
-        <View style={{...styles.adStyle, backgroundColor: color}} />
         {/* Space to separate ad from ui */}
         <View style={{...styles.bottomStyle, backgroundColor: color}} />
       </SafeAreaView>
@@ -222,21 +220,26 @@ function ClockScreen() {
   }
   /** update size function */
   function updateSizes(window) {
-    if (window.width>1100 && window.height>800){
+    const width=window.width
+    const height=window.height
+    if (width>1150 && height>700){
       setMultiplier(4)
-    } else if (window.width>900 && window.height>700){
+    } else if (width>900 && height>600){
       setMultiplier(3.25)
-    } else if (window.width>800 && window.height>550){
+    } else if (width>800 && height>450){
       setMultiplier(2.5)
-    } else if (window.width>600 && window.height>400) {
+    } else if (width>700 && height>410){
+      setMultiplier(2.1)
+    } else if (width>600 && height>300) {
       setMultiplier(1.75)
-    } else if (window.width>500 && window.height>350) {
+    } else if (width>410 && height>250) {
       setMultiplier(1.25)
-    }else if (window.width>300 && window.height>200){
+    } else if (width>300 && height>150){
       setMultiplier(1)
     } else {
       setMultiplier(0.75)
     }
+    console.log(width)
   }
 };
 export default ClockScreen;

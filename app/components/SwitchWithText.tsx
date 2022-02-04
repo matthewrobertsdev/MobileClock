@@ -11,7 +11,7 @@ function SwitchWthText(props) {
   const isDarkMode = useColorScheme() === 'dark';
   const textColor = isDarkMode ? 'white' : 'black'
   return (
-    <View style={{flexDirection: 'row', alignItems: 'center', width: 250, justifyContent: 'space-between', margin: 10}}>
+    <View style={{flexDirection: 'row', alignItems: 'center', width: 250, justifyContent: 'space-between', margin: 20}}>
       <Text style={{color: textColor}}>{props.text}</Text>
       <Switch onValueChange={props.toggleSwitch} value={props.isEnabled} 
       disabled={props.disabled} accessibilityLabel={props.text}/>

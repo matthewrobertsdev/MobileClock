@@ -37,14 +37,14 @@ function AboutScreen() {
             Spiffy Clock
           </Text>
           <Text style={{ color: textColor, fontSize: 20, margin: 5 }}>
-            Version 1.0 (4)
+            Version 1.0 (6)
           </Text>
           <Text style={{ color: textColor, fontSize: 20, margin: 5, textAlign: 'center' }}>
             {'Copyright © 2022 Matt Roberts.  \nAll rights reserved.'}
           </Text>
             <ButtonWithMargin text='Frequently Asked Questions' onPress={
               () => {
-                openUrl('https://matthewrobertsdev.github.io/celeritasapps/#/contact')
+                openUrl('https://matthewrobertsdev.github.io/celeritasapps/#/faq/spiffyclock')
               }
             } />
             <ButtonWithMargin text='Home Page' onPress={
@@ -52,14 +52,14 @@ function AboutScreen() {
                 openUrl('https://matthewrobertsdev.github.io/celeritasapps/#/')
               }
             } />
-            <ButtonWithMargin text='Contact the Developer...' onPress={
+            <ButtonWithMargin text='Contact the Developer' onPress={
               () => {
                 openUrl('https://matthewrobertsdev.github.io/celeritasapps/#/contact')
               }
             } />
             <ButtonWithMargin text='Privacy Policy' onPress={
               () => {
-                openUrl('https://matthewrobertsdev.github.io/celeritasapps/#/contact')
+                openUrl('https://matthewrobertsdev.github.io/celeritasapps/#/privacy/spiffyclock')
               }
             } />
         </View>

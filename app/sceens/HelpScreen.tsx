@@ -26,10 +26,10 @@
          <View style={styles.container}>
           <ButtonWithMargin text='Frequently Asked Questions' onPress={
             ()=>{
-              openUrl('https://matthewrobertsdev.github.io/celeritasapps/#/contact')
+              openUrl('https://matthewrobertsdev.github.io/celeritasapps/#/faq/spiffyclock')
             }
           }/>
-          <ButtonWithMargin text='Contact the Developer...' onPress={
+          <ButtonWithMargin text='Contact the Developer' onPress={
             ()=>{
               openUrl('https://matthewrobertsdev.github.io/celeritasapps/#/contact')
             }
