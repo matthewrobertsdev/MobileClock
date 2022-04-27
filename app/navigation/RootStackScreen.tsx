@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 import { Button, Platform } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import ClockScreen from '../sceens/ClockScreen'
-import SettingsScreen from '../sceens/SettingsScreen'
-import ColorsScreen from '../sceens/ColorsScreen'
-import AndroidLoadingScreen from '../sceens/AndroidLoadingScreen'
+import ClockScreen from '../screens/ClockScreen'
+import SettingsScreen from '../screens/SettingsScreen'
+import ColorsScreen from '../screens/ColorsScreen'
+import AndroidLoadingScreen from '../screens/AndroidLoadingScreen'
 import HelpScreen from '../sceens/HelpScreen'
-import AboutScreen from '../sceens/AboutScreen'
-import CustomColorScreen from '../sceens/CustomColorScreen'
+import AboutScreen from '../screens/AboutScreen'
+import CustomColorScreen from '../screens/CustomColorScreen'
 
 
 const RootStack = createNativeStackNavigator();

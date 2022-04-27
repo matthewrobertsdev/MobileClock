@@ -15,14 +15,14 @@ import { styles } from '../style/Style'
 //holds settings
 import { SettingsContext } from '../navigation/RootStackScreen';
 //colors
-import { colorNames, darkColors, getBackgroundColor, getRgbString, getTextColor, lightColors, lightDarkBackground } from '../style/Colors';
+import { colorNames, darkColors, getBackgroundColor, getTextColor, lightColors, lightDarkBackground } from '../style/Colors';
 //components
 import ButtonWithMargin from '../components/ButtonWithMargin';
 import SwitchWthText from '../components/SwitchWithText';
 //async storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function ColorsScreen({navigation}) {
+function ColorsScreen() {
   const [color, setColor]=useState('Blue')
   const [textColor, setTextColor]=useState('black')
 
