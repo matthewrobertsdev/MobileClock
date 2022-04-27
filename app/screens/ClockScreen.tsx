@@ -148,22 +148,22 @@ function ClockScreen() {
         <View style={{...styles.settingsContainer, backgroundColor: color}}>
           {/* Button to take you to settings */}
           <ImagePressable screenName='Colors' imageName='brush-outline' 
-          color={'white'} backgroundColor={color}
+          color={iconColor} backgroundColor={color}
           accessibilityLabel={"Show colors"}/>
           <ImagePressable screenName='Settings' imageName='cog-outline' 
-          color={'white'} backgroundColor={color}
+          color={iconColor} backgroundColor={color}
           accessibilityLabel={"Show settings"}/>
         </View>
           <View style={{...styles.centeredContainer, backgroundColor: color}}>
             {/* Time Text */}
             <Text style={{ ...styles.timeText, fontSize: 
               settings.showsSeconds ? 70*multiplier : 110*multiplier,
-              color: 'white'}} allowFontScaling={false}>
+              color: textColor}} allowFontScaling={false}>
               {timeString/*'20:32:45'*/}
             </Text>
             {/* Date Text */}
             <Text style={{...styles.dateText, fontSize: 25*multiplier, 
-              color: 'white'}} allowFontScaling={false}>
+              color: textColor}} allowFontScaling={false}>
               {dateString/*"Wednesday, September 30"*/}
             </Text>
           </View>
