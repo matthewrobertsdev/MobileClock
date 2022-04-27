@@ -23,6 +23,7 @@ import ButtonWithMargin from '../components/ButtonWithMargin'
 import openUrl from '../utilities/openUrl'
 
 function AboutScreen() {
+  const versionNumString='8'
   const isDarkMode = useColorScheme() === 'dark';
   const textColor = isDarkMode ? 'white' : 'black'
   return (
@@ -37,7 +38,7 @@ function AboutScreen() {
             Spiffy Clock
           </Text>
           <Text style={{ color: textColor, fontSize: 20, margin: 5 }}>
-            Version 1.0 (6)
+            Version 1.0 ({versionNumString})
           </Text>
           <Text style={{ color: textColor, fontSize: 20, margin: 5, textAlign: 'center' }}>
             {'Copyright © 2022 Matt Roberts.  \nAll rights reserved.'}

@@ -159,7 +159,7 @@ function ClockScreen() {
             <Text style={{ ...styles.timeText, fontSize: 
               settings.showsSeconds ? 70*multiplier : 110*multiplier,
               color: textColor}} allowFontScaling={false}>
-              {timeString/*20:00:00 */}
+              {timeString/*'20:32:45'*/}
             </Text>
             {/* Date Text */}
             <Text style={{...styles.dateText, fontSize: 25*multiplier, 
