@@ -1,5 +1,16 @@
 import {getHexString} from '../utilities/numberConversions'
 
+export const brightColors={
+  Red: 'rgb(255,146,103)',
+  Orange: 'rgb(255,160,87)',
+  Yellow: 'rgb(255,230,128)',
+  Green: 'rgb(162,255,167)',
+  Blue: 'rgb(128,188,247)',
+  Indigo: 'rgb(124,133,255)',
+  Purple: 'rgb(180,130,255)',
+  Pink: 'rgb(245,149,232)',
+  Brown: 'rgb(201,140,105)',
+}
 export const lightColors={
   Red: 'rgb(255,59,48)',
   Orange: 'rgb(255,149,2)',
@@ -31,16 +42,20 @@ export const lightDarkBackground='rgb(28,28,30)'
 export const darkLightBackground='rgb(242,242,247)'
 
 export const getTextColor=(settings, isDarkMode) => {
-  if (settings.colorForForeground) {
-    if (settings.usesNightMode) {
-      return isDarkMode ? darkColors[settings.colorChoice] :
-        lightColors[settings.colorChoice]
+  if (settings.colorForForeground ) {
+    if (settings.usesNightMode && isDarkMode) {
+      return darkColors[settings.colorChoice]
+    } else if (settings.usesBrightMode && !isDarkMode) {
+      return brightColors[settings.colorChoice]
     } else {
-      return lightColors[settings.colorChoice]
+      return isDarkMode ? darkColors[settings.colorChoice] :
+      lightColors[settings.colorChoice]
     }
   } else {
-    if (settings.usesNightMode) {
+    if (settings.usesNightMode && isDarkMode) {
       return 'black'
+    } else if (settings.usesBrightMode && !isDarkMode) {
+      return 'white'
     } else {
       return isDarkMode ? 'white' :
       'black'
@@ -69,16 +84,22 @@ export const getSafeAreaColor=(settings, isDarkMode) => {
 
 export const getIconColor=(settings, isDarkMode) => {
   if (settings.colorForForeground ) {
-    if (!settings.usesNightMode) {
-      return lightColors[settings.colorChoice]
-    } else {
+    if (settings.usesNightMode && isDarkMode) {
       return darkColors[settings.colorChoice]
+    } else if (settings.usesBrightMode && !isDarkMode) {
+      return brightColors[settings.colorChoice]
+    } else {
+      return isDarkMode ? darkColors[settings.colorChoice] :
+      lightColors[settings.colorChoice]
     }
   } else {
-    if (isDarkMode && !settings.usesNightMode) {
+    if (settings.usesNightMode && isDarkMode) {
+      return 'black'
+    } else if (settings.usesBrightMode && !isDarkMode) {
       return 'white'
     } else {
-      return 'black'
+      return isDarkMode ? 'white' :
+      'black'
     }
   }
 }

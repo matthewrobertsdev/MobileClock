@@ -15,7 +15,7 @@ import { styles } from '../style/Style'
 //holds settings
 import { SettingsContext } from '../navigation/RootStackScreen';
 //colors
-import { colorNames, darkColors, getBackgroundColor, getTextColor, lightColors, lightDarkBackground } from '../style/Colors';
+import { brightColors, colorNames, darkColors, getBackgroundColor, getTextColor, lightColors, lightDarkBackground } from '../style/Colors';
 //components
 import ButtonWithMargin from '../components/ButtonWithMargin';
 import SwitchWthText from '../components/SwitchWithText';
@@ -51,9 +51,22 @@ function ColorsScreen() {
       // saving error
     }
   }
+  const saveUsesBrightMode = async (state) => {
+    try {
+      const jsonValue = JSON.stringify(state)
+      await AsyncStorage.setItem('useBrightMode', jsonValue)
+    } catch (e) {
+      // saving error
+    }
+  }
   const toggleUsesNightMode = () => {
     saveUsesNightMode(!settings.usesNightMode)
     setSettings({ ...settings, usesNightMode: !settings.usesNightMode })
+  }
+
+  const toggleUsesBrightMode = () => {
+    saveUsesBrightMode(!settings.usesBrightMode)
+    setSettings({ ...settings, usesBrightMode: !settings.usesBrightMode })
   }
 
   const useColorForForegound = () => {
@@ -109,6 +122,8 @@ function ColorsScreen() {
           <ButtonWithMargin text='Use Color for Foreground' onPress={useColorForForegound} />
           <SwitchWthText text='Use Night Mode in Dark Mode'
             toggleSwitch={toggleUsesNightMode} isEnabled={settings.usesNightMode} />
+          <SwitchWthText text='Use Bright Mode in Light Mode'
+            toggleSwitch={toggleUsesBrightMode} isEnabled={settings.usesBrightMode} />
           {colorNames.map(colorName => <ColorCell colorName={colorName}
             color={getColor(colorName)}
             key={colorName} onPress={() => {
@@ -130,6 +145,8 @@ function ColorsScreen() {
     if (settings.colorForForeground) {
       if (settings.usesNightMode && isDarkMode) {
         return darkColors[colorName]
+      } else if (settings.usesBrightMode && !isDarkMode) {
+        return brightColors[colorName]
       } else {
         return lightColors[colorName]
       }

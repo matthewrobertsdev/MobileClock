@@ -53,10 +53,8 @@ function ClockScreen() {
   /** for iOS paused clock ui */
   useEffect(() => {
     const subscription = AppState.addEventListener("change", nextAppState => {
-
       appState.current = nextAppState;
       setAppStateVisible(appState.current);
-      console.log("AppState", appState.current);
     });
 
     return () => {
