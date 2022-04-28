@@ -1,11 +1,11 @@
 import {getHexString} from '../utilities/numberConversions'
 
 export const brightColors={
-  Red: 'rgb(255,146,103)',
-  Orange: 'rgb(255,160,87)',
-  Yellow: 'rgb(255,230,128)',
-  Green: 'rgb(162,255,167)',
-  Blue: 'rgb(128,188,247)',
+  Red: 'rgb(255,97,73)',
+  Orange: 'rgb(255,162,82)',
+  Yellow: 'rgb(255,235,88)',
+  Green: 'rgb(128,255,121)',
+  Blue: 'rgb(101,171,247)',
   Indigo: 'rgb(124,133,255)',
   Purple: 'rgb(180,130,255)',
   Pink: 'rgb(245,149,232)',
@@ -48,8 +48,7 @@ export const getTextColor=(settings, isDarkMode) => {
     } else if (settings.usesBrightMode && !isDarkMode) {
       return brightColors[settings.colorChoice]
     } else {
-      return isDarkMode ? darkColors[settings.colorChoice] :
-      lightColors[settings.colorChoice]
+      return lightColors[settings.colorChoice]
     }
   } else {
     if (settings.usesNightMode && isDarkMode) {
@@ -89,8 +88,7 @@ export const getIconColor=(settings, isDarkMode) => {
     } else if (settings.usesBrightMode && !isDarkMode) {
       return brightColors[settings.colorChoice]
     } else {
-      return isDarkMode ? darkColors[settings.colorChoice] :
-      lightColors[settings.colorChoice]
+      return lightColors[settings.colorChoice]
     }
   } else {
     if (settings.usesNightMode && isDarkMode) {

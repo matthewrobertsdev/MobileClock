@@ -5,7 +5,7 @@ import ClockScreen from '../screens/ClockScreen'
 import SettingsScreen from '../screens/SettingsScreen'
 import ColorsScreen from '../screens/ColorsScreen'
 import AndroidLoadingScreen from '../screens/AndroidLoadingScreen'
-import HelpScreen from '../sceens/HelpScreen'
+import HelpScreen from '../screens/HelpScreen'
 import AboutScreen from '../screens/AboutScreen'
 import CustomColorScreen from '../screens/CustomColorScreen'
 
