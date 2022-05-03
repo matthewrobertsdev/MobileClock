@@ -10,6 +10,10 @@ export const brightColors={
   Purple: 'rgb(180,130,255)',
   Pink: 'rgb(245,149,232)',
   Brown: 'rgb(201,140,105)',
+  Black: 'rgb(0,0,0)',
+  Gray: 'rgb(173,173,173)',
+  White: 'rgb(255,255,255)',
+  SystemColor: 'rgb(255,255,255)',
 }
 export const lightColors={
   Red: 'rgb(255,59,48)',
@@ -21,6 +25,10 @@ export const lightColors={
   Purple: 'rgb(175,82,222)',
   Pink: 'rgb(255,45,85)',
   Brown: 'rgb(209,103,74)',
+  Black: 'rgb(0,0,0)',
+  Gray: 'rgb(141,141,141)',
+  White: 'rgb(255,255,255)',
+  System: 'rgb(255,255,255)',
 }
 
 export const darkColors={
@@ -33,10 +41,14 @@ export const darkColors={
   Purple: 'rgb(96, 31, 159)',
   Pink: 'rgb(167, 40, 103)',
   Brown: 'rgb(130,64,46)',
+  Black: 'rgb(0,0,0)',
+  Gray: 'rgb(60,60,60)',
+  White: 'rgb(255,255,255)',
+  System: 'rgb(0,0,0)',
 }
 
 export const colorNames=['Red', 'Orange', 'Yellow', 'Green', 'Blue', 
-'Indigo', 'Purple', 'Pink', 'Brown']
+'Indigo', 'Purple', 'Pink', 'Brown', 'Black', 'Gray', 'White', 'System']
 
 export const lightDarkBackground='rgb(28,28,30)'
 export const darkLightBackground='rgb(242,242,247)'
@@ -51,7 +63,11 @@ export const getTextColor=(settings, isDarkMode) => {
       return lightColors[settings.colorChoice]
     }
   } else {
-    if (settings.usesNightMode && isDarkMode) {
+    if (settings.colorChoice==='Black') {
+      return 'white'
+    } else if (settings.colorChoice==='White') {
+      return 'black'
+    } if (settings.usesNightMode && isDarkMode) {
       return 'black'
     } else if (settings.usesBrightMode && !isDarkMode) {
       return 'white'
@@ -91,7 +107,11 @@ export const getIconColor=(settings, isDarkMode) => {
       return lightColors[settings.colorChoice]
     }
   } else {
-    if (settings.usesNightMode && isDarkMode) {
+    if (settings.colorChoice==='Black') {
+      return 'white'
+    } else if (settings.colorChoice==='White') {
+      return 'black'
+    } else if (settings.usesNightMode && isDarkMode) {
       return 'black'
     } else if (settings.usesBrightMode && !isDarkMode) {
       return 'white'
@@ -103,6 +123,11 @@ export const getIconColor=(settings, isDarkMode) => {
 }
 
 export const getBarStyle=(settings, isDarkMode) =>{
+  if (!settings.colorForForeground && settings.colorChoice==="Black") {
+    return 'light-content'
+  } else if (!settings.colorForForeground && settings.colorChoice==="White") {
+    return 'dark-content'
+  }
   if (isDarkMode || settings.colorForForeground) {
     return 'light-content'
   } else {

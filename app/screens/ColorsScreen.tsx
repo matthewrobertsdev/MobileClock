@@ -97,7 +97,8 @@ function ColorsScreen() {
         backgroundColor:
           props.color,
         width: 50, height: 50, borderRadius: 20,
-        margin: 10
+        margin: 10, borderStyle: 'solid', borderWidth: 0.5, 
+        borderColor: isDarkMode ? 'white' : 'black'
       }} />
       <Text style={{ fontSize: 20, margin: 10, color: isDarkMode ? 'white' : 'black' }}>
         {props.colorName}
@@ -110,7 +111,8 @@ function ColorsScreen() {
       {/* Color preview background and text */}
       <View style={{
         ...styles.colorPreview, backgroundColor: color,
-        marginLeft: 'auto', marginRight: 'auto'
+        marginLeft: 'auto', marginRight: 'auto', borderStyle: 'solid', borderWidth: 0.5, 
+        borderColor: isDarkMode ? 'white' : 'black'
       }} accessibilityLabel={"Color preview"}>
         <Text style={{ ...styles.colorPreviewText, color: textColor }}>
           Color Choice
