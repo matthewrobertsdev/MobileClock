@@ -124,8 +124,8 @@ function ColorsScreen() {
           <ButtonWithMargin text='Use Color for Foreground' onPress={useColorForForegound} />
           <SwitchWthText text='Use Night Mode in Dark Mode'
             toggleSwitch={toggleUsesNightMode} isEnabled={settings.usesNightMode} />
-          <SwitchWthText text='Use Bright Mode in Light Mode'
-            toggleSwitch={toggleUsesBrightMode} isEnabled={settings.usesBrightMode} />
+          {/*<SwitchWthText text='Use Bright Mode in Light Mode'
+            toggleSwitch={toggleUsesBrightMode} isEnabled={settings.usesBrightMode} />*/}
           {colorNames.map(colorName => <ColorCell colorName={colorName}
             color={getColor(colorName)}
             key={colorName} onPress={() => {
@@ -149,11 +149,14 @@ function ColorsScreen() {
         return isDarkMode ? 'white' : 'black'
       } if (settings.usesNightMode && isDarkMode) {
         return darkColors[colorName]
-      } else if (settings.usesBrightMode && !isDarkMode) {
-        return brightColors[colorName]
       } else {
         return lightColors[colorName]
       }
+      /*
+      else if (settings.usesBrightMode && !isDarkMode) {
+        return brightColors[colorName]
+      }
+      */
     } else {
       return isDarkMode ? darkColors[colorName] : lightColors[colorName]
     }

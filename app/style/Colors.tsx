@@ -59,11 +59,14 @@ export const getTextColor=(settings, isDarkMode) => {
       return isDarkMode ? 'white' : 'black'
     } else if (settings.usesNightMode && isDarkMode) {
       return darkColors[settings.colorChoice]
-    } else if (settings.usesBrightMode && !isDarkMode) {
-      return brightColors[settings.colorChoice]
     } else {
       return lightColors[settings.colorChoice]
     }
+    /*
+    else if (settings.usesBrightMode && !isDarkMode) {
+      return brightColors[settings.colorChoice]
+    }
+    */
   } else {
     if (settings.colorChoice==='Black') {
       return 'white'
@@ -71,11 +74,14 @@ export const getTextColor=(settings, isDarkMode) => {
       return 'black'
     } if (settings.usesNightMode && isDarkMode) {
       return 'black'
-    } else if (settings.usesBrightMode && !isDarkMode) {
-      return 'white'
     } else {
       return isDarkMode ? 'white' : 'black'
     }
+    /*
+    else if (settings.usesBrightMode && !isDarkMode) {
+      return 'white'
+    }
+    */
   }
 }
 
@@ -112,11 +118,14 @@ export const getIconColor=(settings, isDarkMode) => {
       return isDarkMode ? 'white' : 'black'
     } else if (settings.usesNightMode && isDarkMode) {
       return darkColors[settings.colorChoice]
-    } else if (settings.usesBrightMode && !isDarkMode) {
-      return brightColors[settings.colorChoice]
-    } else {
+    }  else {
       return lightColors[settings.colorChoice]
     }
+    /*
+    else if (settings.usesBrightMode && !isDarkMode) {
+      return brightColors[settings.colorChoice]
+    }
+    */
   } else {
     if (settings.colorChoice==='Black') {
       return 'white'
@@ -124,11 +133,14 @@ export const getIconColor=(settings, isDarkMode) => {
       return 'black'
     } else if (settings.usesNightMode && isDarkMode) {
       return 'black'
-    } else if (settings.usesBrightMode && !isDarkMode) {
-      return 'white'
     } else {
       return isDarkMode ? 'white' : 'black'
     }
+    /*
+    else if (settings.usesBrightMode && !isDarkMode) {
+      return 'white'
+    }
+    */
   }
 }
 
