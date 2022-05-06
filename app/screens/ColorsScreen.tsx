@@ -145,7 +145,9 @@ function ColorsScreen() {
   )
   function getColor(colorName) {
     if (settings.colorForForeground) {
-      if (settings.usesNightMode && isDarkMode) {
+      if (colorName === 'System') {
+        return isDarkMode ? 'white' : 'black'
+      } if (settings.usesNightMode && isDarkMode) {
         return darkColors[colorName]
       } else if (settings.usesBrightMode && !isDarkMode) {
         return brightColors[colorName]

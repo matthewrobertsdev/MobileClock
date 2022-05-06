@@ -13,7 +13,7 @@ export const brightColors={
   Black: 'rgb(0,0,0)',
   Gray: 'rgb(173,173,173)',
   White: 'rgb(255,255,255)',
-  SystemColor: 'rgb(255,255,255)',
+  SystemColor: 'rgb(242,242,242)',
 }
 export const lightColors={
   Red: 'rgb(255,59,48)',
@@ -28,7 +28,7 @@ export const lightColors={
   Black: 'rgb(0,0,0)',
   Gray: 'rgb(141,141,141)',
   White: 'rgb(255,255,255)',
-  System: 'rgb(255,255,255)',
+  System: 'rgb(242,242,242)',
 }
 
 export const darkColors={
@@ -44,7 +44,7 @@ export const darkColors={
   Black: 'rgb(0,0,0)',
   Gray: 'rgb(60,60,60)',
   White: 'rgb(255,255,255)',
-  System: 'rgb(0,0,0)',
+  System: 'rgb(30,30,30)',
 }
 
 export const colorNames=['Red', 'Orange', 'Yellow', 'Green', 'Blue', 
@@ -55,7 +55,9 @@ export const darkLightBackground='rgb(242,242,247)'
 
 export const getTextColor=(settings, isDarkMode) => {
   if (settings.colorForForeground ) {
-    if (settings.usesNightMode && isDarkMode) {
+    if (settings.colorChoice === 'System') {
+      return isDarkMode ? 'white' : 'black'
+    } else if (settings.usesNightMode && isDarkMode) {
       return darkColors[settings.colorChoice]
     } else if (settings.usesBrightMode && !isDarkMode) {
       return brightColors[settings.colorChoice]
@@ -65,22 +67,25 @@ export const getTextColor=(settings, isDarkMode) => {
   } else {
     if (settings.colorChoice==='Black') {
       return 'white'
-    } else if (settings.colorChoice==='White') {
+    } else if (settings.colorChoice==='White' || (settings.colorChoice==='System' && !isDarkMode)) {
       return 'black'
     } if (settings.usesNightMode && isDarkMode) {
       return 'black'
     } else if (settings.usesBrightMode && !isDarkMode) {
       return 'white'
     } else {
-      return isDarkMode ? 'white' :
-      'black'
+      return isDarkMode ? 'white' : 'black'
     }
   }
 }
 
 export const getBackgroundColor=(settings, isDarkMode) => {
   if (settings.colorForForeground) {
-    return 'rgb(30,30,30)'
+    if (settings.colorChoice === 'Black' || (settings.colorChoice === 'System' && !isDarkMode)) {
+      return 'rgb(60,60,60)'
+    } else {
+      return 'rgb(30,30,30)'
+    }
   } else {
     return isDarkMode ? darkColors[settings.colorChoice] :
             lightColors[settings.colorChoice]
@@ -89,7 +94,11 @@ export const getBackgroundColor=(settings, isDarkMode) => {
 
 export const getSafeAreaColor=(settings, isDarkMode) => {
   if (settings.colorForForeground) {
-    return 'rgb(30,30,30)'
+    if (settings.colorChoice === 'Black' || (settings.colorChoice === 'System' && !isDarkMode)) {
+      return 'rgb(60,60,60)'
+    } else {
+      return 'rgb(30,30,30)'
+    }
   }  else {
     return isDarkMode ? darkColors[settings.colorChoice] :
             lightColors[settings.colorChoice]
@@ -99,7 +108,9 @@ export const getSafeAreaColor=(settings, isDarkMode) => {
 
 export const getIconColor=(settings, isDarkMode) => {
   if (settings.colorForForeground ) {
-    if (settings.usesNightMode && isDarkMode) {
+    if (settings.colorChoice === 'System') {
+      return isDarkMode ? 'white' : 'black'
+    } else if (settings.usesNightMode && isDarkMode) {
       return darkColors[settings.colorChoice]
     } else if (settings.usesBrightMode && !isDarkMode) {
       return brightColors[settings.colorChoice]
@@ -109,15 +120,14 @@ export const getIconColor=(settings, isDarkMode) => {
   } else {
     if (settings.colorChoice==='Black') {
       return 'white'
-    } else if (settings.colorChoice==='White') {
+    } else if (settings.colorChoice==='White' || (settings.colorChoice==='System' && !isDarkMode)) {
       return 'black'
     } else if (settings.usesNightMode && isDarkMode) {
       return 'black'
     } else if (settings.usesBrightMode && !isDarkMode) {
       return 'white'
     } else {
-      return isDarkMode ? 'white' :
-      'black'
+      return isDarkMode ? 'white' : 'black'
     }
   }
 }
