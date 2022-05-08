@@ -23,7 +23,7 @@ import ButtonWithMargin from '../components/ButtonWithMargin'
 import openUrl from '../utilities/openUrl'
 
 function AboutScreen() {
-  const versionNumString="2.0"
+  const versionNumString="1.1"
   const buildNumString='9'
   const isDarkMode = useColorScheme() === 'dark';
   const textColor = isDarkMode ? 'white' : 'black'
