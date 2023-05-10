@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Colors, } from 'react-native/Libraries/NewAppScreen';
 export const styles = StyleSheet.create({
   safeAreaStyle: {
@@ -41,13 +41,11 @@ export const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: "center",
     color: 'white',
-    //margin: 5,
   },
   dateText: {
     fontSize: 22.5,
     textAlign: "center",
     color: 'white',
-    //margin: 5,
   },
   colorPreview: {
     width: 200, 

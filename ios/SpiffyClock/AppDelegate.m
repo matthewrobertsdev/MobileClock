@@ -47,6 +47,20 @@ static void InitializeFlipper(UIApplication *application) {
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  if (@available(iOS 14.0, *)) {
+    Boolean isiOSAppOnMac = [[NSProcessInfo processInfo] isiOSAppOnMac];
+    if (isiOSAppOnMac) {
+    int i;
+      for( i = 0; i < UIApplication.sharedApplication.connectedScenes.count; i = i + 1 ) {
+        UIWindowScene *windowScene = (UIWindowScene *) UIApplication.sharedApplication.connectedScenes.allObjects[i];
+        windowScene.sizeRestrictions.minimumSize = CGSizeMake(1000, 650);
+        windowScene.sizeRestrictions.maximumSize = CGSizeMake(1000, 650);
+      }
+    }
+  } else {
+    // Fallback on earlier versions
+  }
   return YES;
 }
 

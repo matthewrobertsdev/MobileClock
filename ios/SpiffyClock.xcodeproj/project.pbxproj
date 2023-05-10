@@ -495,6 +495,8 @@
 				DEVELOPMENT_TEAM = 8ZAMGA7E3H;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SpiffyClock/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Spiffy Clock";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -525,6 +527,8 @@
 				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 8ZAMGA7E3H;
 				INFOPLIST_FILE = SpiffyClock/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Spiffy Clock";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
