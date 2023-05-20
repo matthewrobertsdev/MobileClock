@@ -37,6 +37,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignSelf: 'flex-start',
   },
+  backgroundContainer: {
+    display: 'flex',
+    width: '100%',
+    backgroundColor: 'Blue',
+    flex: 1
+  },
   timeText: {
     fontSize: 40,
     textAlign: "center",
@@ -50,7 +56,8 @@ export const styles = StyleSheet.create({
   colorPreview: {
     width: 200, 
     backgroundColor: 'Blue', 
-    margin: 20, 
+    marginTop: 12.5, 
+    marginBottom: 5, 
     borderRadius: 20,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,

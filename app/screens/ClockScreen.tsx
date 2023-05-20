@@ -24,6 +24,7 @@ import { twentyFourHourWithSeconds, twentyFourHourNoSeconds,
   getDayOfWeekStringOnly, getWrittenDateStingOnly, getNumericalDateString,
   getNumericalDateStringOnly, getEmptyDateString} from '../clockFunctions/ClockFunctions'
 import { getBackgroundColor, getIconColor, getSafeAreaColor, getTextColor, getBarStyle } from '../style/Colors';
+import LinearGradient from 'react-native-linear-gradient';
 
 function ClockScreen() {
   /* basic state */
@@ -33,9 +34,9 @@ function ClockScreen() {
   const [loaded, setLoaded] = useState(false)
   const [settings, setSettings] = useContext(SettingsContext);
   //colors
-  const [color, setColor]=useState('Blue')
+  const [color, setColor]=useState(['rgb(2, 76, 182)', 'rgb(2, 76, 182)'])
   const [textColor, setTextColor]=useState('black')
-  const [safeAreaColor, setSafeAreaColor]=useState('Blue')
+  const [safeAreaColor, setSafeAreaColor]=useState(['rgb(2, 76, 182)', 'rgb(2, 76, 182)'])
   const [iconColor, setIconColor]=useState('black')
   const [barStyle, setBarStyle]=useState('dark-content')
   const isDarkMode = useColorScheme() === 'dark';
@@ -106,7 +107,6 @@ function ClockScreen() {
         updateClock(timeFunction, dateFunction)
         //start the new timer
         startTimer = setInterval(() => {
-          //console.log("timer")
           updateClock(timeFunction, dateFunction)
         }, 100);
       } else {
@@ -140,19 +140,20 @@ function ClockScreen() {
   } else {
     //if settings are loaded, display ui
     return (
+      <LinearGradient style={{...styles.backgroundContainer}} colors={color}>
       <SafeAreaView style={{...styles.safeAreaStyle, 
-        backgroundColor: safeAreaColor}}>
+        backgroundColor: '#00000000'}}>
         <StatusBar hidden={!settings.showsStatusBar} barStyle={barStyle}/>
-        <View style={{...styles.settingsContainer, backgroundColor: color}}>
+        <View style={{...styles.settingsContainer, backgroundColor: '#00000000'}}>
           {/* Button to take you to settings */}
           <ImagePressable screenName='Colors' imageName='brush-outline' 
-          color={iconColor} backgroundColor={color}
+          color={iconColor} backgroundColor={'#00000000'}
           accessibilityLabel={"Show colors"}/>
           <ImagePressable screenName='Settings' imageName='cog-outline' 
-          color={iconColor} backgroundColor={color}
+          color={iconColor} backgroundColor={'#00000000'}
           accessibilityLabel={"Show settings"}/>
         </View>
-          <View style={{...styles.centeredContainer, backgroundColor: color}}>
+          <View style={{...styles.centeredContainer, backgroundColor: '#00000000'}}>
             {/* Time Text */}
             <Text style={{ ...styles.timeText, fontSize: 
               settings.showsSeconds ? 70*multiplier : 110*multiplier,
@@ -166,8 +167,9 @@ function ClockScreen() {
             </Text>
           </View>
         {/* Space to separate ad from ui */}
-        <View style={{...styles.bottomStyle, backgroundColor: color}} />
+        <View style={{...styles.bottomStyle, backgroundColor: 'transparent'}} />
       </SafeAreaView>
+      </LinearGradient>
     );
   }
   /** update clock functions */

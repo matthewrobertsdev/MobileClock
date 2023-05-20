@@ -21,9 +21,10 @@ import ButtonWithMargin from '../components/ButtonWithMargin';
 import SwitchWthText from '../components/SwitchWithText';
 //async storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LinearGradient from 'react-native-linear-gradient';
 
 function ColorsScreen() {
-  const [color, setColor]=useState('Blue')
+  const [color, setColor]=useState(['rgb(2, 76, 182)', 'rgb(2, 76, 182)'])
   const [textColor, setTextColor]=useState('black')
 
   const saveColorChoice = async (state) => {
@@ -39,6 +40,14 @@ function ColorsScreen() {
     try {
       const jsonValue = JSON.stringify(state)
       await AsyncStorage.setItem('colorForForeground', jsonValue)
+    } catch (e) {
+      // saving error
+    }
+  }
+  const saveUsesGradient = async (state) => {
+    try {
+      const jsonValue = JSON.stringify(state)
+      await AsyncStorage.setItem('usesGradient', jsonValue)
     } catch (e) {
       // saving error
     }
@@ -62,6 +71,12 @@ function ColorsScreen() {
   const toggleUsesNightMode = () => {
     saveUsesNightMode(!settings.usesNightMode)
     setSettings({ ...settings, usesNightMode: !settings.usesNightMode })
+  }
+
+
+  const toggleUseGradient = () => {
+    saveUsesGradient(!settings.usesGradient)
+    setSettings({ ...settings, usesGradient: !settings.usesGradient })
   }
 
   const toggleUsesBrightMode = () => {
@@ -93,13 +108,11 @@ function ColorsScreen() {
       backgroundColor: isDarkMode ? lightDarkBackground : 'white',
       flexDirection: 'row', alignItems: 'center', margin: 10, borderRadius: 20
     }} onPress={props.onPress}>
-      <View style={{
-        backgroundColor:
-          props.color,
-        width: 50, height: 50, borderRadius: 20,
+      <LinearGradient style={{
+        width: 40, height: 40, borderRadius: 10,
         margin: 10, borderStyle: 'solid', borderWidth: 0.5, 
         borderColor: isDarkMode ? 'white' : 'black'
-      }} />
+      }} colors={props.color}/>
       <Text style={{ fontSize: 20, margin: 10, color: isDarkMode ? 'white' : 'black' }}>
         {props.colorName}
       </Text>
@@ -109,19 +122,21 @@ function ColorsScreen() {
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
       {/* Color preview background and text */}
-      <View style={{
-        ...styles.colorPreview, backgroundColor: color,
+      <LinearGradient style={{
+        ...styles.colorPreview, backgroundColor: "transparent",
         marginLeft: 'auto', marginRight: 'auto', borderStyle: 'solid', borderWidth: 0.5, 
         borderColor: isDarkMode ? 'white' : 'black'
-      }} accessibilityLabel={"Color preview"}>
+      }} colors={color} accessibilityLabel={"Color preview"}>
         <Text style={{ ...styles.colorPreviewText, color: textColor }}>
           Color Choice
         </Text>
-      </View>
+      </LinearGradient>
       <ScrollView>
         <View style={{ alignItems: 'center', flex: 1 }}>
           <ButtonWithMargin text='Use Color for Background' onPress={useColorForBackground} />
           <ButtonWithMargin text='Use Color for Foreground' onPress={useColorForForegound} />
+          <SwitchWthText text='Use Color Gradient'
+            toggleSwitch={toggleUseGradient} isEnabled={settings.usesGradient} />
           <SwitchWthText text='Use Night Mode in Dark Mode'
             toggleSwitch={toggleUsesNightMode} isEnabled={settings.usesNightMode} />
           {/*<SwitchWthText text='Use Bright Mode in Light Mode'
@@ -146,19 +161,64 @@ function ColorsScreen() {
   function getColor(colorName) {
     if (settings.colorForForeground) {
       if (colorName === 'System') {
-        return isDarkMode ? 'white' : 'black'
+        return isDarkMode ? ['white', 'white'] : ['black', 'black']
       } if (settings.usesNightMode && isDarkMode) {
-        return darkColors[colorName]
+        return [darkColors[colorName], darkColors[colorName]]
       } else {
-        return lightColors[colorName]
+        return [lightColors[colorName], lightColors[colorName]]
       }
-      /*
-      else if (settings.usesBrightMode && !isDarkMode) {
-        return brightColors[colorName]
-      }
-      */
+    } else if (settings.usesGradient){
+      switch(colorName) {
+        case "Red": 
+      return isDarkMode ? [darkColors["Orange"],  darkColors["Red"]] :
+        [lightColors["Orange"],  lightColors["Red"]]
+        case "Orange": 
+      return isDarkMode ? [darkColors["Yellow"],  darkColors["Orange"]] :
+        [lightColors["Yellow"],  lightColors["Orange"]]
+        case "Yellow": 
+      return isDarkMode ? [darkColors["Orange"],  darkColors["Yellow"]] :
+        [lightColors["Orange"],  lightColors["Yellow"]]
+        case "Green": 
+      return isDarkMode ? [darkColors["Blue"],  darkColors["Green"]] :
+        [lightColors["Blue"],  lightColors["Green"]]
+      case "Blue": 
+      return isDarkMode ? [darkColors["Purple"],  darkColors["Blue"]] :
+        [lightColors["Purple"],  lightColors["Blue"]]
+        case "Indigo": 
+      return isDarkMode ? [darkColors["Purple"],  darkColors["Indigo"]] :
+        [lightColors["Purple"],  lightColors["Indigo"]]
+        case "Purple": 
+      return isDarkMode ? [darkColors["Pink"],  darkColors["Purple"]] :
+        [lightColors["Pink"],  lightColors["Purple"]]
+        case "Pink": 
+      return isDarkMode ? [darkColors["Red"],  darkColors["Pink"]] :
+        [lightColors["Red"],  lightColors["Pink"]]
+        case "Brown": 
+      return isDarkMode ? [darkColors["Yellow"],  darkColors["Brown"]] :
+        [lightColors["Yellow"],  lightColors["Brown"]]
+        case "Black": 
+      return isDarkMode ? [darkColors["Gray"],  darkColors["Black"]] :
+      [lightColors["Gray"],  lightColors["Black"]]
+      case "Gray": 
+      return isDarkMode ? [darkColors["Black"],  darkColors["Gray"]] :
+      [lightColors["White"],  lightColors["Gray"]]
+      case "White": 
+      return isDarkMode ? [darkColors["Gray"],  darkColors["White"]] :
+      [lightColors["Gray"],  lightColors["White"]]
+      case "System": 
+      return isDarkMode ? [darkColors["Gray"],  darkColors["Black"]] :
+      [lightColors["Gray"],  lightColors["White"]]
+      default:
+        return [darkColors["Gray"],  darkColors["Black"]]
+    }
+      //return isDarkMode ? darkColors[settings.colorChoice] :
+              //lightColors[settings.colorChoice]
     } else {
-      return isDarkMode ? darkColors[colorName] : lightColors[colorName]
+      if (isDarkMode) {
+       return [darkColors[colorName], darkColors[colorName]]
+    } else {
+      return [lightColors[colorName], lightColors[colorName]]
+    }
     }
   }
 };

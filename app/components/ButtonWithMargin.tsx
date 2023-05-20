@@ -8,7 +8,7 @@ import {
 
 function ButtonWithMargin(props) {
   return (
-    <View style={{margin: 10}}>
+    <View style={{margin: 5}}>
       <Button title={props.text} onPress={props.onPress}/>
     </View>
   );

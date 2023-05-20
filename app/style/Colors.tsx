@@ -86,6 +86,7 @@ export const getTextColor=(settings, isDarkMode) => {
 }
 
 export const getBackgroundColor=(settings, isDarkMode) => {
+  if (!settings.usesGradient) {
   if (settings.colorForForeground) {
     if (settings.colorChoice === 'Black' || (settings.colorChoice === 'System' && !isDarkMode)) {
       return 'rgb(60,60,60)'
@@ -93,8 +94,63 @@ export const getBackgroundColor=(settings, isDarkMode) => {
       return 'rgb(30,30,30)'
     }
   } else {
-    return isDarkMode ? darkColors[settings.colorChoice] :
-            lightColors[settings.colorChoice]
+    return isDarkMode ? [darkColors[settings.colorChoice], darkColors[settings.colorChoice]] :
+            [lightColors[settings.colorChoice], lightColors[settings.colorChoice]]
+  }
+  } else {
+    if (settings.colorForForeground) {
+      if (settings.colorChoice === 'Black' || (settings.colorChoice === 'System' && !isDarkMode)) {
+        return ['rgb(30,30,30)', 'rgb(60,60,60)']
+      } else {
+        return ['rgb(60,60,60)', 'rgb(30,30,30)']
+      }
+    } else {
+      switch(settings.colorChoice) {
+        case "Red": 
+      return isDarkMode ? [darkColors["Orange"],  darkColors["Red"]] :
+        [lightColors["Orange"],  lightColors["Red"]]
+        case "Orange": 
+      return isDarkMode ? [darkColors["Yellow"],  darkColors["Orange"]] :
+        [lightColors["Yellow"],  lightColors["Orange"]]
+        case "Yellow": 
+      return isDarkMode ? [darkColors["Orange"],  darkColors["Yellow"]] :
+        [lightColors["Orange"],  lightColors["Yellow"]]
+        case "Green": 
+      return isDarkMode ? [darkColors["Blue"],  darkColors["Green"]] :
+        [lightColors["Blue"],  lightColors["Green"]]
+      case "Blue": 
+      return isDarkMode ? [darkColors["Purple"],  darkColors["Blue"]] :
+        [lightColors["Purple"],  lightColors["Blue"]]
+        case "Indigo": 
+      return isDarkMode ? [darkColors["Purple"],  darkColors["Indigo"]] :
+        [lightColors["Purple"],  lightColors["Indigo"]]
+        case "Purple": 
+      return isDarkMode ? [darkColors["Pink"],  darkColors["Purple"]] :
+        [lightColors["Pink"],  lightColors["Purple"]]
+        case "Pink": 
+      return isDarkMode ? [darkColors["Red"],  darkColors["Pink"]] :
+        [lightColors["Red"],  lightColors["Pink"]]
+        case "Brown": 
+      return isDarkMode ? [darkColors["Yellow"],  darkColors["Brown"]] :
+        [lightColors["Yellow"],  lightColors["Brown"]]
+        case "Black": 
+      return isDarkMode ? [darkColors["Gray"],  darkColors["Black"]] :
+      [lightColors["Gray"],  lightColors["Black"]]
+      case "Gray": 
+      return isDarkMode ? [darkColors["Black"],  darkColors["Gray"]] :
+      [lightColors["White"],  lightColors["Gray"]]
+      case "White": 
+      return isDarkMode ? [darkColors["Gray"],  darkColors["White"]] :
+      [lightColors["Gray"],  lightColors["White"]]
+      case "System": 
+      return isDarkMode ? [darkColors["Gray"],  darkColors["Black"]] :
+      [lightColors["Gray"],  lightColors["White"]]
+      default:
+        return [darkColors["Gray"],  darkColors["Black"]]
+    }
+      //return isDarkMode ? darkColors[settings.colorChoice] :
+              //lightColors[settings.colorChoice]
+    }
   }
 }
 

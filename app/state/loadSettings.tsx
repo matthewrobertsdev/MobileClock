@@ -4,8 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
   const loadSettings = async () => {
     let state={showsSeconds: false, uses24HourTime: false, showsDate: true, 
       showsDayOfWeek: true, usesNumericalDate: false, colorChoice: 'Blue', 
-      usesNightMode: false, usesBrightMode: false, colorForForeground: false, showsStatusBar: true, 
-      customRed: 43, customGreen: 186, customBlue: 255}
+      usesNightMode: false, usesBrightMode: false, colorForForeground: false, usesGradient: false, 
+      showsStatusBar: true, customRed: 43, customGreen: 186, customBlue: 255}
     try {
       const secondsPreference = JSON.parse(await AsyncStorage.getItem('showsSeconds'))
       if(secondsPreference !== null && typeof secondsPreference === 'boolean') {
@@ -42,6 +42,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
       const colorForForeground = JSON.parse(await AsyncStorage.getItem('colorForForeground'))
       if(colorForForeground !== null && typeof colorForForeground === 'boolean') {
         state.colorForForeground=colorForForeground
+      }
+      const usesGradient = JSON.parse(await AsyncStorage.getItem('usesGradient'))
+      if(usesGradient !== null && typeof usesGradient === 'boolean') {
+        state.usesGradient=usesGradient
       }
       const showsStatusBarPreference = JSON.parse(await AsyncStorage.getItem('showsStatusBar'))
       if(showsStatusBarPreference !== null && typeof showsStatusBarPreference === 'boolean') {

@@ -23,8 +23,8 @@ import ButtonWithMargin from '../components/ButtonWithMargin'
 import openUrl from '../utilities/openUrl'
 
 function AboutScreen() {
-  const versionNumString="1.1"
-  const buildNumString='9'
+  const versionNumString="2.0"
+  const buildNumString='10'
   const isDarkMode = useColorScheme() === 'dark';
   const textColor = isDarkMode ? 'white' : 'black'
   return (
@@ -42,7 +42,7 @@ function AboutScreen() {
             Version {(versionNumString)} ({buildNumString})
           </Text>
           <Text style={{ color: textColor, fontSize: 20, margin: 5, textAlign: 'center' }}>
-            {'Copyright © 2022 Matt Roberts.  \nAll rights reserved.'}
+            {'Copyright © 2022-2023 Matt Roberts.  \nAll rights reserved.'}
           </Text>
             <ButtonWithMargin text='Frequently Asked Questions' onPress={
               () => {
