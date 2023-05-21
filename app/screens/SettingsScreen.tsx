@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { View, ScrollView, SafeAreaView } from 'react-native';
+import { View, ScrollView, SafeAreaView, Alert } from 'react-native';
 
 import { useContext } from 'react';
 
@@ -10,10 +10,19 @@ import SwitchWithText from '../components/SwitchWithText'
 import ButtonWithMargin from '../components/ButtonWithMargin'
 import { SettingsContext } from '../navigation/RootStackScreen';
 import { styles } from '../style/Style';
+import openUrl from '../utilities/openUrl';
 
 
 function SettingsScreen({ navigation }) {
   const [settings, setSettings] = useContext(SettingsContext);
+  const ratingAlert = () =>
+    Alert.alert('Like Spiffy Clock?', 'Want to rate or review Spiffy Clock on the App Store?', [
+      {
+        text: 'No',
+        style: 'cancel',
+      },
+      {text: 'Yes', onPress: () => openUrl('https://itunes.apple.com/app/id1602707841?action=write-review')},
+    ]);
   //save settings
   const saveShowSeconds = async (state) => {
     try {
@@ -110,6 +119,7 @@ function SettingsScreen({ navigation }) {
               isEnabled={settings.showsStatusBar} text='Shows Status Bar' />
           </View>
           <ButtonWithMargin text='Help' onPress={() => navigation.navigate('Help')} />
+          <ButtonWithMargin text='Like Spiffy Clock?' onPress={() => {ratingAlert()}} />
           <ButtonWithMargin text='About Spiffy Clock' onPress={() => navigation.navigate('About')} />
         </View>
       </ScrollView>

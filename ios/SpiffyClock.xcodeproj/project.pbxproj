@@ -43,6 +43,7 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-SpiffyClockMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpiffyClockMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-SpiffyClockMobile-SpiffyClockMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpiffyClockMobile-SpiffyClockMobileTests.release.xcconfig"; path = "Target Support Files/Pods-SpiffyClockMobile-SpiffyClockMobileTests/Pods-SpiffyClockMobile-SpiffyClockMobileTests.release.xcconfig"; sourceTree = "<group>"; };
 		9F222C012A13348E009E1CF5 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
+		9FABFB062A193EB000A86866 /* SpiffyClock.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpiffyClock.entitlements; sourceTree = "<group>"; };
 		9FEA71A42A187321000B02C3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -87,6 +88,7 @@
 		13B07FAE1A68108700A75B9A /* SpiffyClock */ = {
 			isa = PBXGroup;
 			children = (
+				9FABFB062A193EB000A86866 /* SpiffyClock.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				9F222C012A13348E009E1CF5 /* Ionicons.ttf */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -487,6 +489,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SpiffyClock.entitlements;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 8ZAMGA7E3H;
 				ENABLE_BITCODE = NO;
@@ -521,6 +524,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SpiffyClock.entitlements;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 8ZAMGA7E3H;
 				INFOPLIST_FILE = SpiffyClockMobile/Info.plist;
